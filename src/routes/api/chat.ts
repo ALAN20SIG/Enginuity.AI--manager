@@ -4,11 +4,64 @@ import { z } from "zod";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 
 const SYSTEM = `You are Enginuity, an AI Engineering Manager, Tech Lead, and Product Manager.
-You serve a B2B SaaS engineering organization. You have LIVE Linear access via tools (linear_list_issues, linear_list_teams, linear_create_issue). Prefer calling tools over guessing. For non-Linear data (GitHub PRs, Slack, Notion) you may reference the demo context below.
-Speak with the calm, instrument-grade tone of a senior staff engineer. Cite Linear identifiers (e.g. ENG-123), team names, and statuses when you have them. Surface risks and concrete next actions. Use crisp markdown.
+You serve a B2B SaaS engineering organization. You have LIVE tools:
+- Linear: linear_list_teams, linear_list_issues, linear_create_issue
+- Notion: notion_search (find pages/databases), notion_get_page (page metadata + properties), notion_get_page_content (extract plain text from blocks)
+Prefer tools over guessing. When asked about planning, specs, PRDs, runbooks, or documentation quality, search Notion first, fetch the relevant pages, then summarize. Flag missing sections (e.g. no acceptance criteria, no rollout plan, stale > 90 days).
+Cite Linear identifiers (ENG-123) and Notion page titles + URLs when you have them. Use crisp markdown.
 Demo context (mocked): sprint "Alpha Phoenix" (S25), health 92/100, cycle time 3.2d, 142 open PRs across 8 repos.`;
 
 const GATEWAY = "https://connector-gateway.lovable.dev/linear/graphql";
+const NOTION_GATEWAY = "https://connector-gateway.lovable.dev/notion/v1";
+
+async function notionFetch(path: string, init?: { method?: string; body?: unknown }) {
+  const lovableKey = process.env.LOVABLE_API_KEY;
+  const notionKey = process.env.NOTION_API_KEY;
+  if (!lovableKey || !notionKey) throw new Error("Notion connection not configured");
+  const res = await fetch(`${NOTION_GATEWAY}${path}`, {
+    method: init?.method ?? "GET",
+    headers: {
+      Authorization: `Bearer ${lovableKey}`,
+      "X-Connection-Api-Key": notionKey,
+      "Content-Type": "application/json",
+    },
+    body: init?.body ? JSON.stringify(init.body) : undefined,
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`Notion ${res.status}: ${text.slice(0, 300)}`);
+  return JSON.parse(text);
+}
+
+function richTextToPlain(rt: Array<{ plain_text?: string }> = []) {
+  return rt.map((r) => r.plain_text ?? "").join("");
+}
+
+function titleOfPage(page: { properties?: Record<string, { title?: Array<{ plain_text?: string }>; type?: string; rich_text?: Array<{ plain_text?: string }> }>; }) {
+  const props = page.properties ?? {};
+  for (const v of Object.values(props)) {
+    if (v.type === "title" && v.title) return richTextToPlain(v.title);
+  }
+  return "(untitled)";
+}
+
+function blockToText(block: any): string {
+  const t = block.type;
+  const node = block[t];
+  if (!node) return "";
+  if (Array.isArray(node.rich_text)) {
+    const txt = richTextToPlain(node.rich_text);
+    if (t === "heading_1") return `\n# ${txt}\n`;
+    if (t === "heading_2") return `\n## ${txt}\n`;
+    if (t === "heading_3") return `\n### ${txt}\n`;
+    if (t === "bulleted_list_item") return `- ${txt}\n`;
+    if (t === "numbered_list_item") return `1. ${txt}\n`;
+    if (t === "to_do") return `- [${node.checked ? "x" : " "}] ${txt}\n`;
+    if (t === "quote") return `> ${txt}\n`;
+    if (t === "code") return `\n\`\`\`${node.language ?? ""}\n${txt}\n\`\`\`\n`;
+    return `${txt}\n`;
+  }
+  return "";
+}
 
 async function linearGraphQL(query: string, variables?: Record<string, unknown>) {
   const lovableKey = process.env.LOVABLE_API_KEY;
@@ -90,6 +143,68 @@ const linearTools = {
   }),
 };
 
+const notionTools = {
+  notion_search: tool({
+    description:
+      "Search Notion pages/databases the integration has access to. Returns id, title, url, last_edited_time.",
+    inputSchema: z.object({
+      query: z.string().optional(),
+      filter: z.enum(["page", "database"]).optional(),
+      limit: z.number().int().min(1).max(25).optional(),
+    }),
+    execute: async ({ query, filter, limit = 10 }) => {
+      const body: Record<string, unknown> = { page_size: limit };
+      if (query) body.query = query;
+      if (filter) body.filter = { value: filter, property: "object" };
+      const data = await notionFetch("/search", { method: "POST", body });
+      return (data.results ?? []).map((r: any) => ({
+        id: r.id,
+        object: r.object,
+        url: r.url,
+        last_edited_time: r.last_edited_time,
+        title: r.object === "page" ? titleOfPage(r) : richTextToPlain(r.title ?? []),
+      }));
+    },
+  }),
+  notion_get_page: tool({
+    description: "Get a Notion page's metadata and properties by page id.",
+    inputSchema: z.object({ pageId: z.string() }),
+    execute: async ({ pageId }) => {
+      const page = await notionFetch(`/pages/${pageId}`);
+      return {
+        id: page.id,
+        url: page.url,
+        title: titleOfPage(page),
+        created_time: page.created_time,
+        last_edited_time: page.last_edited_time,
+        properties: page.properties,
+      };
+    },
+  }),
+  notion_get_page_content: tool({
+    description:
+      "Fetch a Notion page's block children and return concatenated markdown-ish text. Use to read the actual content of a page before summarizing.",
+    inputSchema: z.object({
+      pageId: z.string(),
+      maxBlocks: z.number().int().min(1).max(200).optional(),
+    }),
+    execute: async ({ pageId, maxBlocks = 100 }) => {
+      let cursor: string | undefined;
+      const blocks: any[] = [];
+      while (blocks.length < maxBlocks) {
+        const qs = new URLSearchParams({ page_size: "100" });
+        if (cursor) qs.set("start_cursor", cursor);
+        const data = await notionFetch(`/blocks/${pageId}/children?${qs.toString()}`);
+        blocks.push(...(data.results ?? []));
+        if (!data.has_more) break;
+        cursor = data.next_cursor;
+      }
+      const text = blocks.slice(0, maxBlocks).map(blockToText).join("");
+      return { blockCount: blocks.length, text: text.slice(0, 12000) };
+    },
+  }),
+};
+
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
@@ -106,7 +221,7 @@ export const Route = createFileRoute("/api/chat")({
           model: gateway("google/gemini-3-flash-preview"),
           system: SYSTEM,
           messages: await convertToModelMessages(messages),
-          tools: linearTools,
+          tools: { ...linearTools, ...notionTools },
           stopWhen: stepCountIs(50),
         });
         return result.toUIMessageStreamResponse({ originalMessages: messages });
