@@ -14,6 +14,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AuthenticatedTeamAnalyticsRouteImport } from './routes/_authenticated/team-analytics'
 import { Route as AuthenticatedSprintsRouteImport } from './routes/_authenticated/sprints'
 import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
 import { Route as AuthenticatedAiManagerRouteImport } from './routes/_authenticated/ai-manager'
@@ -42,6 +43,12 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedTeamAnalyticsRoute =
+  AuthenticatedTeamAnalyticsRouteImport.update({
+    id: '/team-analytics',
+    path: '/team-analytics',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSprintsRoute = AuthenticatedSprintsRouteImport.update({
   id: '/sprints',
   path: '/sprints',
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/ai-manager': typeof AuthenticatedAiManagerRoute
   '/projects': typeof AuthenticatedProjectsRoute
   '/sprints': typeof AuthenticatedSprintsRoute
+  '/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesByTo {
@@ -73,6 +81,7 @@ export interface FileRoutesByTo {
   '/ai-manager': typeof AuthenticatedAiManagerRoute
   '/projects': typeof AuthenticatedProjectsRoute
   '/sprints': typeof AuthenticatedSprintsRoute
+  '/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
   '/': typeof AuthenticatedIndexRoute
 }
@@ -84,6 +93,7 @@ export interface FileRoutesById {
   '/_authenticated/ai-manager': typeof AuthenticatedAiManagerRoute
   '/_authenticated/projects': typeof AuthenticatedProjectsRoute
   '/_authenticated/sprints': typeof AuthenticatedSprintsRoute
+  '/_authenticated/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
 }
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/ai-manager'
     | '/projects'
     | '/sprints'
+    | '/team-analytics'
     | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '/ai-manager'
     | '/projects'
     | '/sprints'
+    | '/team-analytics'
     | '/api/chat'
     | '/'
   id:
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ai-manager'
     | '/_authenticated/projects'
     | '/_authenticated/sprints'
+    | '/_authenticated/team-analytics'
     | '/api/chat'
     | '/_authenticated/'
   fileRoutesById: FileRoutesById
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/team-analytics': {
+      id: '/_authenticated/team-analytics'
+      path: '/team-analytics'
+      fullPath: '/team-analytics'
+      preLoaderRoute: typeof AuthenticatedTeamAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/sprints': {
       id: '/_authenticated/sprints'
       path: '/sprints'
@@ -190,6 +210,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAiManagerRoute: typeof AuthenticatedAiManagerRoute
   AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
   AuthenticatedSprintsRoute: typeof AuthenticatedSprintsRoute
+  AuthenticatedTeamAnalyticsRoute: typeof AuthenticatedTeamAnalyticsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
@@ -197,6 +218,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAiManagerRoute: AuthenticatedAiManagerRoute,
   AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
   AuthenticatedSprintsRoute: AuthenticatedSprintsRoute,
+  AuthenticatedTeamAnalyticsRoute: AuthenticatedTeamAnalyticsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 
