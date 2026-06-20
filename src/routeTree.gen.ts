@@ -21,6 +21,7 @@ import { Route as AuthenticatedRisksRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
 import { Route as AuthenticatedPullRequestsRouteImport } from './routes/_authenticated/pull-requests'
 import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
 import { Route as AuthenticatedMcpConnectionsRouteImport } from './routes/_authenticated/mcp-connections'
 import { Route as AuthenticatedDocumentationRouteImport } from './routes/_authenticated/documentation'
 import { Route as AuthenticatedAiManagerRouteImport } from './routes/_authenticated/ai-manager'
@@ -87,6 +88,12 @@ const AuthenticatedProjectsRoute = AuthenticatedProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedMcpConnectionsRoute =
   AuthenticatedMcpConnectionsRouteImport.update({
     id: '/mcp-connections',
@@ -118,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/ai-manager': typeof AuthenticatedAiManagerRoute
   '/documentation': typeof AuthenticatedDocumentationRoute
   '/mcp-connections': typeof AuthenticatedMcpConnectionsRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/projects': typeof AuthenticatedProjectsRoute
   '/pull-requests': typeof AuthenticatedPullRequestsRoute
   '/reports': typeof AuthenticatedReportsRoute
@@ -134,6 +142,7 @@ export interface FileRoutesByTo {
   '/ai-manager': typeof AuthenticatedAiManagerRoute
   '/documentation': typeof AuthenticatedDocumentationRoute
   '/mcp-connections': typeof AuthenticatedMcpConnectionsRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
   '/projects': typeof AuthenticatedProjectsRoute
   '/pull-requests': typeof AuthenticatedPullRequestsRoute
   '/reports': typeof AuthenticatedReportsRoute
@@ -153,6 +162,7 @@ export interface FileRoutesById {
   '/_authenticated/ai-manager': typeof AuthenticatedAiManagerRoute
   '/_authenticated/documentation': typeof AuthenticatedDocumentationRoute
   '/_authenticated/mcp-connections': typeof AuthenticatedMcpConnectionsRoute
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
   '/_authenticated/projects': typeof AuthenticatedProjectsRoute
   '/_authenticated/pull-requests': typeof AuthenticatedPullRequestsRoute
   '/_authenticated/reports': typeof AuthenticatedReportsRoute
@@ -173,6 +183,7 @@ export interface FileRouteTypes {
     | '/ai-manager'
     | '/documentation'
     | '/mcp-connections'
+    | '/notifications'
     | '/projects'
     | '/pull-requests'
     | '/reports'
@@ -189,6 +200,7 @@ export interface FileRouteTypes {
     | '/ai-manager'
     | '/documentation'
     | '/mcp-connections'
+    | '/notifications'
     | '/projects'
     | '/pull-requests'
     | '/reports'
@@ -207,6 +219,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ai-manager'
     | '/_authenticated/documentation'
     | '/_authenticated/mcp-connections'
+    | '/_authenticated/notifications'
     | '/_authenticated/projects'
     | '/_authenticated/pull-requests'
     | '/_authenticated/reports'
@@ -311,6 +324,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProjectsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/mcp-connections': {
       id: '/_authenticated/mcp-connections'
       path: '/mcp-connections'
@@ -347,6 +367,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAiManagerRoute: typeof AuthenticatedAiManagerRoute
   AuthenticatedDocumentationRoute: typeof AuthenticatedDocumentationRoute
   AuthenticatedMcpConnectionsRoute: typeof AuthenticatedMcpConnectionsRoute
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
   AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
   AuthenticatedPullRequestsRoute: typeof AuthenticatedPullRequestsRoute
   AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
@@ -362,6 +383,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAiManagerRoute: AuthenticatedAiManagerRoute,
   AuthenticatedDocumentationRoute: AuthenticatedDocumentationRoute,
   AuthenticatedMcpConnectionsRoute: AuthenticatedMcpConnectionsRoute,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
   AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
   AuthenticatedPullRequestsRoute: AuthenticatedPullRequestsRoute,
   AuthenticatedReportsRoute: AuthenticatedReportsRoute,
