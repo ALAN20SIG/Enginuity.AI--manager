@@ -14,7 +14,18 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as AuthenticatedTeamAnalyticsRouteImport } from './routes/_authenticated/team-analytics'
+import { Route as AuthenticatedSprintsRouteImport } from './routes/_authenticated/sprints'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedRisksRouteImport } from './routes/_authenticated/risks'
+import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
+import { Route as AuthenticatedPullRequestsRouteImport } from './routes/_authenticated/pull-requests'
+import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated/notifications'
+import { Route as AuthenticatedMcpConnectionsRouteImport } from './routes/_authenticated/mcp-connections'
+import { Route as AuthenticatedDocumentationRouteImport } from './routes/_authenticated/documentation'
 import { Route as AuthenticatedAiManagerRouteImport } from './routes/_authenticated/ai-manager'
+import { Route as AuthenticatedAgentsRouteImport } from './routes/_authenticated/agents'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -40,9 +51,69 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedTeamAnalyticsRoute =
+  AuthenticatedTeamAnalyticsRouteImport.update({
+    id: '/team-analytics',
+    path: '/team-analytics',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedSprintsRoute = AuthenticatedSprintsRouteImport.update({
+  id: '/sprints',
+  path: '/sprints',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRisksRoute = AuthenticatedRisksRouteImport.update({
+  id: '/risks',
+  path: '/risks',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedReportsRoute = AuthenticatedReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPullRequestsRoute =
+  AuthenticatedPullRequestsRouteImport.update({
+    id: '/pull-requests',
+    path: '/pull-requests',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedProjectsRoute = AuthenticatedProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedMcpConnectionsRoute =
+  AuthenticatedMcpConnectionsRouteImport.update({
+    id: '/mcp-connections',
+    path: '/mcp-connections',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDocumentationRoute =
+  AuthenticatedDocumentationRouteImport.update({
+    id: '/documentation',
+    path: '/documentation',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAiManagerRoute = AuthenticatedAiManagerRouteImport.update({
   id: '/ai-manager',
   path: '/ai-manager',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAgentsRoute = AuthenticatedAgentsRouteImport.update({
+  id: '/agents',
+  path: '/agents',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
@@ -50,13 +121,35 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/agents': typeof AuthenticatedAgentsRoute
   '/ai-manager': typeof AuthenticatedAiManagerRoute
+  '/documentation': typeof AuthenticatedDocumentationRoute
+  '/mcp-connections': typeof AuthenticatedMcpConnectionsRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/projects': typeof AuthenticatedProjectsRoute
+  '/pull-requests': typeof AuthenticatedPullRequestsRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/risks': typeof AuthenticatedRisksRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/sprints': typeof AuthenticatedSprintsRoute
+  '/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/agents': typeof AuthenticatedAgentsRoute
   '/ai-manager': typeof AuthenticatedAiManagerRoute
+  '/documentation': typeof AuthenticatedDocumentationRoute
+  '/mcp-connections': typeof AuthenticatedMcpConnectionsRoute
+  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/projects': typeof AuthenticatedProjectsRoute
+  '/pull-requests': typeof AuthenticatedPullRequestsRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/risks': typeof AuthenticatedRisksRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/sprints': typeof AuthenticatedSprintsRoute
+  '/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
   '/': typeof AuthenticatedIndexRoute
 }
@@ -65,21 +158,75 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/agents': typeof AuthenticatedAgentsRoute
   '/_authenticated/ai-manager': typeof AuthenticatedAiManagerRoute
+  '/_authenticated/documentation': typeof AuthenticatedDocumentationRoute
+  '/_authenticated/mcp-connections': typeof AuthenticatedMcpConnectionsRoute
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
+  '/_authenticated/projects': typeof AuthenticatedProjectsRoute
+  '/_authenticated/pull-requests': typeof AuthenticatedPullRequestsRoute
+  '/_authenticated/reports': typeof AuthenticatedReportsRoute
+  '/_authenticated/risks': typeof AuthenticatedRisksRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/sprints': typeof AuthenticatedSprintsRoute
+  '/_authenticated/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/reset-password' | '/ai-manager' | '/api/chat'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/agents'
+    | '/ai-manager'
+    | '/documentation'
+    | '/mcp-connections'
+    | '/notifications'
+    | '/projects'
+    | '/pull-requests'
+    | '/reports'
+    | '/risks'
+    | '/settings'
+    | '/sprints'
+    | '/team-analytics'
+    | '/api/chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/reset-password' | '/ai-manager' | '/api/chat' | '/'
+  to:
+    | '/auth'
+    | '/reset-password'
+    | '/agents'
+    | '/ai-manager'
+    | '/documentation'
+    | '/mcp-connections'
+    | '/notifications'
+    | '/projects'
+    | '/pull-requests'
+    | '/reports'
+    | '/risks'
+    | '/settings'
+    | '/sprints'
+    | '/team-analytics'
+    | '/api/chat'
+    | '/'
   id:
     | '__root__'
     | '/_authenticated'
     | '/auth'
     | '/reset-password'
+    | '/_authenticated/agents'
     | '/_authenticated/ai-manager'
+    | '/_authenticated/documentation'
+    | '/_authenticated/mcp-connections'
+    | '/_authenticated/notifications'
+    | '/_authenticated/projects'
+    | '/_authenticated/pull-requests'
+    | '/_authenticated/reports'
+    | '/_authenticated/risks'
+    | '/_authenticated/settings'
+    | '/_authenticated/sprints'
+    | '/_authenticated/team-analytics'
     | '/api/chat'
     | '/_authenticated/'
   fileRoutesById: FileRoutesById
@@ -128,6 +275,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/team-analytics': {
+      id: '/_authenticated/team-analytics'
+      path: '/team-analytics'
+      fullPath: '/team-analytics'
+      preLoaderRoute: typeof AuthenticatedTeamAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sprints': {
+      id: '/_authenticated/sprints'
+      path: '/sprints'
+      fullPath: '/sprints'
+      preLoaderRoute: typeof AuthenticatedSprintsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/risks': {
+      id: '/_authenticated/risks'
+      path: '/risks'
+      fullPath: '/risks'
+      preLoaderRoute: typeof AuthenticatedRisksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/reports': {
+      id: '/_authenticated/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AuthenticatedReportsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pull-requests': {
+      id: '/_authenticated/pull-requests'
+      path: '/pull-requests'
+      fullPath: '/pull-requests'
+      preLoaderRoute: typeof AuthenticatedPullRequestsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/projects': {
+      id: '/_authenticated/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof AuthenticatedProjectsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/mcp-connections': {
+      id: '/_authenticated/mcp-connections'
+      path: '/mcp-connections'
+      fullPath: '/mcp-connections'
+      preLoaderRoute: typeof AuthenticatedMcpConnectionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/documentation': {
+      id: '/_authenticated/documentation'
+      path: '/documentation'
+      fullPath: '/documentation'
+      preLoaderRoute: typeof AuthenticatedDocumentationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/ai-manager': {
       id: '/_authenticated/ai-manager'
       path: '/ai-manager'
@@ -135,16 +352,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAiManagerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/agents': {
+      id: '/_authenticated/agents'
+      path: '/agents'
+      fullPath: '/agents'
+      preLoaderRoute: typeof AuthenticatedAgentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAgentsRoute: typeof AuthenticatedAgentsRoute
   AuthenticatedAiManagerRoute: typeof AuthenticatedAiManagerRoute
+  AuthenticatedDocumentationRoute: typeof AuthenticatedDocumentationRoute
+  AuthenticatedMcpConnectionsRoute: typeof AuthenticatedMcpConnectionsRoute
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
+  AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
+  AuthenticatedPullRequestsRoute: typeof AuthenticatedPullRequestsRoute
+  AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
+  AuthenticatedRisksRoute: typeof AuthenticatedRisksRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedSprintsRoute: typeof AuthenticatedSprintsRoute
+  AuthenticatedTeamAnalyticsRoute: typeof AuthenticatedTeamAnalyticsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAgentsRoute: AuthenticatedAgentsRoute,
   AuthenticatedAiManagerRoute: AuthenticatedAiManagerRoute,
+  AuthenticatedDocumentationRoute: AuthenticatedDocumentationRoute,
+  AuthenticatedMcpConnectionsRoute: AuthenticatedMcpConnectionsRoute,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
+  AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
+  AuthenticatedPullRequestsRoute: AuthenticatedPullRequestsRoute,
+  AuthenticatedReportsRoute: AuthenticatedReportsRoute,
+  AuthenticatedRisksRoute: AuthenticatedRisksRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedSprintsRoute: AuthenticatedSprintsRoute,
+  AuthenticatedTeamAnalyticsRoute: AuthenticatedTeamAnalyticsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 
