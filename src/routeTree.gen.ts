@@ -22,6 +22,7 @@ import { Route as AuthenticatedPullRequestsRouteImport } from './routes/_authent
 import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
 import { Route as AuthenticatedDocumentationRouteImport } from './routes/_authenticated/documentation'
 import { Route as AuthenticatedAiManagerRouteImport } from './routes/_authenticated/ai-manager'
+import { Route as AuthenticatedAgentsRouteImport } from './routes/_authenticated/agents'
 
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
@@ -90,11 +91,17 @@ const AuthenticatedAiManagerRoute = AuthenticatedAiManagerRouteImport.update({
   path: '/ai-manager',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAgentsRoute = AuthenticatedAgentsRouteImport.update({
+  id: '/agents',
+  path: '/agents',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/agents': typeof AuthenticatedAgentsRoute
   '/ai-manager': typeof AuthenticatedAiManagerRoute
   '/documentation': typeof AuthenticatedDocumentationRoute
   '/projects': typeof AuthenticatedProjectsRoute
@@ -108,6 +115,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/agents': typeof AuthenticatedAgentsRoute
   '/ai-manager': typeof AuthenticatedAiManagerRoute
   '/documentation': typeof AuthenticatedDocumentationRoute
   '/projects': typeof AuthenticatedProjectsRoute
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/agents': typeof AuthenticatedAgentsRoute
   '/_authenticated/ai-manager': typeof AuthenticatedAiManagerRoute
   '/_authenticated/documentation': typeof AuthenticatedDocumentationRoute
   '/_authenticated/projects': typeof AuthenticatedProjectsRoute
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/reset-password'
+    | '/agents'
     | '/ai-manager'
     | '/documentation'
     | '/projects'
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
   to:
     | '/auth'
     | '/reset-password'
+    | '/agents'
     | '/ai-manager'
     | '/documentation'
     | '/projects'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/reset-password'
+    | '/_authenticated/agents'
     | '/_authenticated/ai-manager'
     | '/_authenticated/documentation'
     | '/_authenticated/projects'
@@ -281,10 +293,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAiManagerRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/agents': {
+      id: '/_authenticated/agents'
+      path: '/agents'
+      fullPath: '/agents'
+      preLoaderRoute: typeof AuthenticatedAgentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAgentsRoute: typeof AuthenticatedAgentsRoute
   AuthenticatedAiManagerRoute: typeof AuthenticatedAiManagerRoute
   AuthenticatedDocumentationRoute: typeof AuthenticatedDocumentationRoute
   AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
@@ -297,6 +317,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAgentsRoute: AuthenticatedAgentsRoute,
   AuthenticatedAiManagerRoute: AuthenticatedAiManagerRoute,
   AuthenticatedDocumentationRoute: AuthenticatedDocumentationRoute,
   AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
