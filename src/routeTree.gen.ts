@@ -16,6 +16,7 @@ import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedTeamAnalyticsRouteImport } from './routes/_authenticated/team-analytics'
 import { Route as AuthenticatedSprintsRouteImport } from './routes/_authenticated/sprints'
+import { Route as AuthenticatedPullRequestsRouteImport } from './routes/_authenticated/pull-requests'
 import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
 import { Route as AuthenticatedAiManagerRouteImport } from './routes/_authenticated/ai-manager'
 
@@ -54,6 +55,12 @@ const AuthenticatedSprintsRoute = AuthenticatedSprintsRouteImport.update({
   path: '/sprints',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPullRequestsRoute =
+  AuthenticatedPullRequestsRouteImport.update({
+    id: '/pull-requests',
+    path: '/pull-requests',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedProjectsRoute = AuthenticatedProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/ai-manager': typeof AuthenticatedAiManagerRoute
   '/projects': typeof AuthenticatedProjectsRoute
+  '/pull-requests': typeof AuthenticatedPullRequestsRoute
   '/sprints': typeof AuthenticatedSprintsRoute
   '/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
@@ -80,6 +88,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/ai-manager': typeof AuthenticatedAiManagerRoute
   '/projects': typeof AuthenticatedProjectsRoute
+  '/pull-requests': typeof AuthenticatedPullRequestsRoute
   '/sprints': typeof AuthenticatedSprintsRoute
   '/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
@@ -92,6 +101,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/ai-manager': typeof AuthenticatedAiManagerRoute
   '/_authenticated/projects': typeof AuthenticatedProjectsRoute
+  '/_authenticated/pull-requests': typeof AuthenticatedPullRequestsRoute
   '/_authenticated/sprints': typeof AuthenticatedSprintsRoute
   '/_authenticated/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/ai-manager'
     | '/projects'
+    | '/pull-requests'
     | '/sprints'
     | '/team-analytics'
     | '/api/chat'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/ai-manager'
     | '/projects'
+    | '/pull-requests'
     | '/sprints'
     | '/team-analytics'
     | '/api/chat'
@@ -125,6 +137,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_authenticated/ai-manager'
     | '/_authenticated/projects'
+    | '/_authenticated/pull-requests'
     | '/_authenticated/sprints'
     | '/_authenticated/team-analytics'
     | '/api/chat'
@@ -189,6 +202,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSprintsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/pull-requests': {
+      id: '/_authenticated/pull-requests'
+      path: '/pull-requests'
+      fullPath: '/pull-requests'
+      preLoaderRoute: typeof AuthenticatedPullRequestsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/projects': {
       id: '/_authenticated/projects'
       path: '/projects'
@@ -209,6 +229,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAiManagerRoute: typeof AuthenticatedAiManagerRoute
   AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
+  AuthenticatedPullRequestsRoute: typeof AuthenticatedPullRequestsRoute
   AuthenticatedSprintsRoute: typeof AuthenticatedSprintsRoute
   AuthenticatedTeamAnalyticsRoute: typeof AuthenticatedTeamAnalyticsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -217,6 +238,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAiManagerRoute: AuthenticatedAiManagerRoute,
   AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
+  AuthenticatedPullRequestsRoute: AuthenticatedPullRequestsRoute,
   AuthenticatedSprintsRoute: AuthenticatedSprintsRoute,
   AuthenticatedTeamAnalyticsRoute: AuthenticatedTeamAnalyticsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
