@@ -1,8 +1,9 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   LayoutDashboard, Bot, FolderKanban, Activity, Users, GitPullRequest,
   ShieldAlert, FileText, BarChart3, Plug, Cpu, Settings, Search, Bell, Sparkles, LogOut,
+  ChevronLeft, ChevronRight,
 } from "lucide-react";
 import logo from "@/assets/enginuity-logo.png";
 import { supabase } from "@/integrations/supabase/client";
@@ -31,6 +32,16 @@ const NAV = [
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem("enginuity-sidebar-collapsed") === "true";
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("enginuity-sidebar-collapsed", String(collapsed));
+    }
+  }, [collapsed]);
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -39,17 +50,45 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex h-screen bg-background text-foreground overflow-hidden">
-      <nav className="w-60 border-r border-border flex flex-col shrink-0">
-        <div className="p-4 mb-2 flex items-center gap-2">
-          <img src={logo} alt="Enginuity" width={24} height={24} className="rounded" />
-          <span className="font-display font-bold tracking-tight text-base">ENGINUITY</span>
+      <nav className={`${collapsed ? "w-16" : "w-60"} border-r border-border flex flex-col shrink-0 transition-[width] duration-200 ease-in-out`}>
+        <div className="p-4 mb-2 flex items-center justify-between">
+          <div className={`flex items-center ${collapsed ? "justify-center w-full" : "gap-2"}`}>
+            <img src={logo} alt="Enginuity" width={24} height={24} className="rounded" />
+            {!collapsed && <span className="font-display font-bold tracking-tight text-base">ENGINUITY</span>}
+          </div>
+          {!collapsed && (
+            <button
+              onClick={() => setCollapsed(true)}
+              className="text-muted-foreground hover:text-foreground p-1 rounded-md hover:bg-white/[0.03]"
+              aria-label="Collapse sidebar"
+              title="Collapse sidebar"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+          )}
         </div>
+
+        {collapsed && (
+          <div className="flex justify-center pb-2">
+            <button
+              onClick={() => setCollapsed(false)}
+              className="text-muted-foreground hover:text-foreground p-1.5 rounded-md hover:bg-white/[0.03]"
+              aria-label="Expand sidebar"
+              title="Expand sidebar"
+            >
+              <ChevronRight className="size-4" />
+            </button>
+          </div>
+        )}
+
         <div className="flex-1 px-3 space-y-1 text-sm overflow-y-auto">
           {NAV.map((group) => (
             <div key={group.section}>
-              <div className="text-[10px] font-mono text-muted-foreground px-2 py-2 mt-2 uppercase tracking-widest">
-                {group.section}
-              </div>
+              {!collapsed && (
+                <div className="text-[10px] font-mono text-muted-foreground px-2 py-2 mt-2 uppercase tracking-widest">
+                  {group.section}
+                </div>
+              )}
               {group.items.map((item) => {
                 const active = pathname === item.to || (item.to !== "/" && pathname.startsWith(item.to));
                 const Icon = item.icon;
@@ -57,25 +96,36 @@ export function AppShell({ children }: { children: ReactNode }) {
                   <Link
                     key={item.to}
                     to={item.to}
-                    className={`flex items-center gap-3 px-2 py-1.5 rounded transition-colors ${active ? "bg-white/5 text-foreground font-medium" : "text-muted-foreground hover:text-foreground hover:bg-white/[0.03]"}`}
+                    title={item.label}
+                    className={`flex items-center rounded transition-colors ${collapsed ? "justify-center px-2 py-2" : "gap-3 px-2 py-1.5"} ${active ? "bg-white/5 text-foreground font-medium" : "text-muted-foreground hover:text-foreground hover:bg-white/[0.03]"}`}
                   >
-                    <Icon className="size-4" />
-                    {item.label}
+                    <Icon className="size-4 shrink-0" />
+                    {!collapsed && <span className="truncate">{item.label}</span>}
                   </Link>
                 );
               })}
             </div>
           ))}
         </div>
-        <div className="p-3 border-t border-border flex items-center gap-3">
-          <div className="size-8 bg-secondary rounded-full flex items-center justify-center font-mono text-xs">MC</div>
-          <div className="flex-1 min-w-0">
-            <div className="text-xs font-medium truncate">Marcus Chen</div>
-            <div className="text-[10px] text-muted-foreground truncate">Engineering Lead</div>
-          </div>
-          <button onClick={signOut} className="text-muted-foreground hover:text-foreground" title="Sign out">
-            <LogOut className="size-4" />
-          </button>
+
+        <div className={`p-3 border-t border-border ${collapsed ? "flex flex-col items-center gap-2" : "flex items-center gap-3"}`}>
+          <div className="size-8 bg-secondary rounded-full flex items-center justify-center font-mono text-xs" title="Marcus Chen">MC</div>
+          {!collapsed && (
+            <>
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-medium truncate">Marcus Chen</div>
+                <div className="text-[10px] text-muted-foreground truncate">Engineering Lead</div>
+              </div>
+              <button onClick={signOut} className="text-muted-foreground hover:text-foreground" title="Sign out">
+                <LogOut className="size-4" />
+              </button>
+            </>
+          )}
+          {collapsed && (
+            <button onClick={signOut} className="text-muted-foreground hover:text-foreground" title="Sign out">
+              <LogOut className="size-4" />
+            </button>
+          )}
         </div>
       </nav>
 
