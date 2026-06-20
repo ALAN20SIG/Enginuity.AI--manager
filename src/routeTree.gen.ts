@@ -16,6 +16,7 @@ import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedTeamAnalyticsRouteImport } from './routes/_authenticated/team-analytics'
 import { Route as AuthenticatedSprintsRouteImport } from './routes/_authenticated/sprints'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedRisksRouteImport } from './routes/_authenticated/risks'
 import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
 import { Route as AuthenticatedPullRequestsRouteImport } from './routes/_authenticated/pull-requests'
@@ -58,6 +59,11 @@ const AuthenticatedTeamAnalyticsRoute =
 const AuthenticatedSprintsRoute = AuthenticatedSprintsRouteImport.update({
   id: '/sprints',
   path: '/sprints',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedRisksRoute = AuthenticatedRisksRouteImport.update({
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/pull-requests': typeof AuthenticatedPullRequestsRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/risks': typeof AuthenticatedRisksRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/sprints': typeof AuthenticatedSprintsRoute
   '/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/pull-requests': typeof AuthenticatedPullRequestsRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/risks': typeof AuthenticatedRisksRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/sprints': typeof AuthenticatedSprintsRoute
   '/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/_authenticated/pull-requests': typeof AuthenticatedPullRequestsRoute
   '/_authenticated/reports': typeof AuthenticatedReportsRoute
   '/_authenticated/risks': typeof AuthenticatedRisksRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/sprints': typeof AuthenticatedSprintsRoute
   '/_authenticated/team-analytics': typeof AuthenticatedTeamAnalyticsRoute
   '/api/chat': typeof ApiChatRoute
@@ -168,6 +177,7 @@ export interface FileRouteTypes {
     | '/pull-requests'
     | '/reports'
     | '/risks'
+    | '/settings'
     | '/sprints'
     | '/team-analytics'
     | '/api/chat'
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
     | '/pull-requests'
     | '/reports'
     | '/risks'
+    | '/settings'
     | '/sprints'
     | '/team-analytics'
     | '/api/chat'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/_authenticated/pull-requests'
     | '/_authenticated/reports'
     | '/_authenticated/risks'
+    | '/_authenticated/settings'
     | '/_authenticated/sprints'
     | '/_authenticated/team-analytics'
     | '/api/chat'
@@ -262,6 +274,13 @@ declare module '@tanstack/react-router' {
       path: '/sprints'
       fullPath: '/sprints'
       preLoaderRoute: typeof AuthenticatedSprintsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/risks': {
@@ -332,6 +351,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPullRequestsRoute: typeof AuthenticatedPullRequestsRoute
   AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
   AuthenticatedRisksRoute: typeof AuthenticatedRisksRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedSprintsRoute: typeof AuthenticatedSprintsRoute
   AuthenticatedTeamAnalyticsRoute: typeof AuthenticatedTeamAnalyticsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -346,6 +366,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPullRequestsRoute: AuthenticatedPullRequestsRoute,
   AuthenticatedReportsRoute: AuthenticatedReportsRoute,
   AuthenticatedRisksRoute: AuthenticatedRisksRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedSprintsRoute: AuthenticatedSprintsRoute,
   AuthenticatedTeamAnalyticsRoute: AuthenticatedTeamAnalyticsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
