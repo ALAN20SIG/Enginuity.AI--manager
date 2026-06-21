@@ -51,12 +51,7 @@ function SprintsPage() {
                   strokeDasharray="4 4"
                   dot={false}
                 />
-                <Line
-                  type="monotone"
-                  dataKey="remaining"
-                  stroke="var(--chart-2)"
-                  strokeWidth={2}
-                />
+                <Line type="monotone" dataKey="remaining" stroke="var(--chart-2)" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>
