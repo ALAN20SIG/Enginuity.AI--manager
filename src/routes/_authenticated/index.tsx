@@ -61,13 +61,13 @@ function Dashboard() {
                   <RadialBarChart
                     innerRadius="75%"
                     outerRadius="100%"
-                    data={[{ name: "score", value: kpis.health.value, fill: "var(--primary)" }]}
+                    data={[{ name: "score", value: kpis.health.value, fill: "var(--chart-1)" }]}
                     startAngle={90}
                     endAngle={-270}
                   >
                     <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
                     <RadialBar
-                      background={{ fill: "rgba(255,255,255,0.05)" }}
+                      background={{ fill: "hsl(var(--muted))" }}
                       dataKey="value"
                       cornerRadius={8}
                     />
@@ -88,7 +88,7 @@ function Dashboard() {
                       <span className="text-foreground">{h.score}</span>
                     </div>
                     <div className="h-1 bg-secondary rounded-full overflow-hidden">
-                      <div className="h-full bg-primary" style={{ width: `${h.score}%` }} />
+                      <div className="h-full bg-chart-1" style={{ width: `${h.score}%` }} />
                     </div>
                   </div>
                 ))}
@@ -171,17 +171,17 @@ function Dashboard() {
                 <AreaChart data={velocityTrend}>
                   <defs>
                     <linearGradient id="v" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.4} />
-                      <stop offset="100%" stopColor="var(--primary)" stopOpacity={0} />
+                      <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={0.4} />
+                      <stop offset="100%" stopColor="var(--chart-1)" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid stroke="rgba(255,255,255,0.04)" />
-                  <XAxis dataKey="sprint" stroke="#71717a" fontSize={10} />
-                  <YAxis stroke="#71717a" fontSize={10} />
+                  <CartesianGrid stroke="hsl(var(--border)/0.4)" />
+                  <XAxis dataKey="sprint" stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
                   <Tooltip
                     contentStyle={{
-                      background: "#121214",
-                      border: "1px solid #27272a",
+                      background: "hsl(var(--card))",
+                      border: "1px solid hsl(var(--border))",
                       borderRadius: 8,
                       fontSize: 12,
                     }}
@@ -189,14 +189,14 @@ function Dashboard() {
                   <Area
                     type="monotone"
                     dataKey="ideal"
-                    stroke="#52525b"
+                    stroke="hsl(var(--muted-foreground))"
                     strokeDasharray="4 4"
                     fill="none"
                   />
                   <Area
                     type="monotone"
                     dataKey="points"
-                    stroke="var(--primary)"
+                    stroke="var(--chart-1)"
                     fill="url(#v)"
                     strokeWidth={2}
                   />

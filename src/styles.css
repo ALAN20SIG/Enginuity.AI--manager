@@ -87,11 +87,11 @@
   --danger: #ef4444;
   --warning: #f59e0b;
   --success: #10b981;
-  --chart-1: #10b981;
-  --chart-2: #f59e0b;
-  --chart-3: #3b82f6;
-  --chart-4: #a855f7;
-  --chart-5: #ef4444;
+  --chart-1: oklch(0.65 0.2 280);
+  --chart-2: oklch(0.7 0.18 200);
+  --chart-3: oklch(0.7 0.17 60);
+  --chart-4: oklch(0.65 0.16 160);
+  --chart-5: oklch(0.6 0.17 10);
   --sidebar: #09090b;
   --sidebar-foreground: #fafafa;
   --sidebar-primary: #10b981;
