@@ -176,8 +176,29 @@ function Dashboard() {
                     </linearGradient>
                   </defs>
                   <CartesianGrid stroke="hsl(var(--border)/0.4)" />
-                  <XAxis dataKey="sprint" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} />
+                  <XAxis
+                    dataKey="sprint"
+                    stroke="hsl(var(--muted-foreground))"
+                    fontSize={10}
+                    label={{
+                      value: "Sprint",
+                      position: "insideBottom",
+                      offset: -2,
+                      fill: "hsl(var(--muted-foreground))",
+                      fontSize: 11,
+                    }}
+                  />
+                  <YAxis
+                    stroke="hsl(var(--muted-foreground))"
+                    fontSize={10}
+                    label={{
+                      value: "Story Points",
+                      angle: -90,
+                      position: "insideLeft",
+                      fill: "hsl(var(--muted-foreground))",
+                      fontSize: 11,
+                    }}
+                  />
                   <Tooltip
                     contentStyle={{
                       background: "hsl(var(--card))",
