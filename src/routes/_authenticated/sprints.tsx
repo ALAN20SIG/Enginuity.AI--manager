@@ -54,7 +54,7 @@ function SprintsPage() {
                 <Line
                   type="monotone"
                   dataKey="remaining"
-                  stroke="hsl(var(--primary))"
+                  stroke="var(--chart-2)"
                   strokeWidth={2}
                 />
               </LineChart>
