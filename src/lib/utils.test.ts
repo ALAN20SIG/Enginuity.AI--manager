@@ -12,6 +12,8 @@ describe("cn", () => {
   });
 
   it("filters out falsy values", () => {
-    expect(cn("base", false && "hidden", null, undefined, "")).toBe("base");
+    const inactive = false;
+    expect(cn("base", inactive && "hidden", null, undefined, "")).toBe("base");
   });
+
 });
