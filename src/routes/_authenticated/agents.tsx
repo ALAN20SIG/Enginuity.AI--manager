@@ -19,7 +19,10 @@ const statusTone: Record<string, string> = {
 function AgentsPage() {
   return (
     <div className="p-6 space-y-4">
-      <PageHeader title="AI Agents" subtitle="Specialized autonomous agents collaborating across the org." />
+      <PageHeader
+        title="AI Agents"
+        subtitle="Specialized autonomous agents collaborating across the org."
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {agents.map((a) => (
           <Card key={a.id} className="p-5 space-y-3">
@@ -30,10 +33,14 @@ function AgentsPage() {
                 </div>
                 <div>
                   <div className="font-display font-semibold">{a.name}</div>
-                  <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mt-0.5">{a.tasks.toLocaleString()} tasks</div>
+                  <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mt-0.5">
+                    {a.tasks.toLocaleString()} tasks
+                  </div>
                 </div>
               </div>
-              <Badge variant="outline" className={statusTone[a.status]}>{a.status}</Badge>
+              <Badge variant="outline" className={statusTone[a.status]}>
+                {a.status}
+              </Badge>
             </div>
             <p className="text-sm text-muted-foreground">{a.responsibility}</p>
             <div className="flex justify-between text-xs font-mono pt-2 border-t border-border">

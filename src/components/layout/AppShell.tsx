@@ -1,32 +1,56 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
-  LayoutDashboard, Bot, FolderKanban, Activity, Users, GitPullRequest,
-  ShieldAlert, FileText, BarChart3, Plug, Cpu, Settings, Search, Bell, Sparkles, LogOut,
-  ChevronLeft, ChevronRight,
+  LayoutDashboard,
+  Bot,
+  FolderKanban,
+  Activity,
+  Users,
+  GitPullRequest,
+  ShieldAlert,
+  FileText,
+  BarChart3,
+  Plug,
+  Cpu,
+  Settings,
+  Search,
+  Bell,
+  Sparkles,
+  LogOut,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import logo from "@/assets/enginuity-logo.png";
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
-  { section: "Main Console", items: [
-    { to: "/", label: "Dashboard", icon: LayoutDashboard },
-    { to: "/ai-manager", label: "AI Manager", icon: Bot },
-    { to: "/projects", label: "Projects", icon: FolderKanban },
-    { to: "/sprints", label: "Sprints", icon: Activity },
-  ]},
-  { section: "Intelligence", items: [
-    { to: "/team-analytics", label: "Team Analytics", icon: Users },
-    { to: "/pull-requests", label: "PR Insights", icon: GitPullRequest },
-    { to: "/risks", label: "Risk Radar", icon: ShieldAlert },
-    { to: "/documentation", label: "Documentation", icon: FileText },
-    { to: "/reports", label: "Reports", icon: BarChart3 },
-    { to: "/agents", label: "AI Agents", icon: Cpu },
-  ]},
-  { section: "Config", items: [
-    { to: "/mcp-connections", label: "MCP Nodes", icon: Plug },
-    { to: "/settings", label: "Settings", icon: Settings },
-  ]},
+  {
+    section: "Main Console",
+    items: [
+      { to: "/", label: "Dashboard", icon: LayoutDashboard },
+      { to: "/ai-manager", label: "AI Manager", icon: Bot },
+      { to: "/projects", label: "Projects", icon: FolderKanban },
+      { to: "/sprints", label: "Sprints", icon: Activity },
+    ],
+  },
+  {
+    section: "Intelligence",
+    items: [
+      { to: "/team-analytics", label: "Team Analytics", icon: Users },
+      { to: "/pull-requests", label: "PR Insights", icon: GitPullRequest },
+      { to: "/risks", label: "Risk Radar", icon: ShieldAlert },
+      { to: "/documentation", label: "Documentation", icon: FileText },
+      { to: "/reports", label: "Reports", icon: BarChart3 },
+      { to: "/agents", label: "AI Agents", icon: Cpu },
+    ],
+  },
+  {
+    section: "Config",
+    items: [
+      { to: "/mcp-connections", label: "MCP Nodes", icon: Plug },
+      { to: "/settings", label: "Settings", icon: Settings },
+    ],
+  },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -50,11 +74,15 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex h-screen bg-background text-foreground overflow-hidden">
-      <nav className={`${collapsed ? "w-16" : "w-60"} border-r border-border flex flex-col shrink-0 transition-[width] duration-200 ease-in-out`}>
+      <nav
+        className={`${collapsed ? "w-16" : "w-60"} border-r border-border flex flex-col shrink-0 transition-[width] duration-200 ease-in-out`}
+      >
         <div className="p-4 mb-2 flex items-center justify-between">
           <div className={`flex items-center ${collapsed ? "justify-center w-full" : "gap-2"}`}>
             <img src={logo} alt="Enginuity" width={24} height={24} className="rounded" />
-            {!collapsed && <span className="font-display font-bold tracking-tight text-base">ENGINUITY</span>}
+            {!collapsed && (
+              <span className="font-display font-bold tracking-tight text-base">ENGINUITY</span>
+            )}
           </div>
           {!collapsed && (
             <button
@@ -90,7 +118,8 @@ export function AppShell({ children }: { children: ReactNode }) {
                 </div>
               )}
               {group.items.map((item) => {
-                const active = pathname === item.to || (item.to !== "/" && pathname.startsWith(item.to));
+                const active =
+                  pathname === item.to || (item.to !== "/" && pathname.startsWith(item.to));
                 const Icon = item.icon;
                 return (
                   <Link
@@ -108,21 +137,36 @@ export function AppShell({ children }: { children: ReactNode }) {
           ))}
         </div>
 
-        <div className={`p-3 border-t border-border ${collapsed ? "flex flex-col items-center gap-2" : "flex items-center gap-3"}`}>
-          <div className="size-8 bg-secondary rounded-full flex items-center justify-center font-mono text-xs" title="Marcus Chen">MC</div>
+        <div
+          className={`p-3 border-t border-border ${collapsed ? "flex flex-col items-center gap-2" : "flex items-center gap-3"}`}
+        >
+          <div
+            className="size-8 bg-secondary rounded-full flex items-center justify-center font-mono text-xs"
+            title="Marcus Chen"
+          >
+            MC
+          </div>
           {!collapsed && (
             <>
               <div className="flex-1 min-w-0">
                 <div className="text-xs font-medium truncate">Marcus Chen</div>
                 <div className="text-[10px] text-muted-foreground truncate">Engineering Lead</div>
               </div>
-              <button onClick={signOut} className="text-muted-foreground hover:text-foreground" title="Sign out">
+              <button
+                onClick={signOut}
+                className="text-muted-foreground hover:text-foreground"
+                title="Sign out"
+              >
                 <LogOut className="size-4" />
               </button>
             </>
           )}
           {collapsed && (
-            <button onClick={signOut} className="text-muted-foreground hover:text-foreground" title="Sign out">
+            <button
+              onClick={signOut}
+              className="text-muted-foreground hover:text-foreground"
+              title="Sign out"
+            >
               <LogOut className="size-4" />
             </button>
           )}
@@ -138,7 +182,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                 placeholder="Search commands, repos, PRs…"
                 className="w-full bg-secondary border border-border rounded-md py-1.5 pl-9 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50"
               />
-              <kbd className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-muted-foreground border border-border rounded px-1.5 py-0.5">/</kbd>
+              <kbd className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-muted-foreground border border-border rounded px-1.5 py-0.5">
+                /
+              </kbd>
             </div>
           </div>
           <div className="flex items-center gap-5">
@@ -149,10 +195,18 @@ export function AppShell({ children }: { children: ReactNode }) {
             <button className="text-muted-foreground hover:text-foreground" title="Team">
               <span className="text-xs font-mono uppercase tracking-widest">Acme · Eng</span>
             </button>
-            <Link to="/ai-manager" className="text-muted-foreground hover:text-primary" title="AI Assistant">
+            <Link
+              to="/ai-manager"
+              className="text-muted-foreground hover:text-primary"
+              title="AI Assistant"
+            >
               <Sparkles className="size-4" />
             </Link>
-            <Link to="/notifications" className="text-muted-foreground hover:text-foreground relative" title="Notifications">
+            <Link
+              to="/notifications"
+              className="text-muted-foreground hover:text-foreground relative"
+              title="Notifications"
+            >
               <Bell className="size-4" />
               <span className="absolute -top-0.5 -right-0.5 size-1.5 bg-accent rounded-full" />
             </Link>

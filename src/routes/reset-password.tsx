@@ -34,7 +34,10 @@ function ResetPassword() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <form onSubmit={onSubmit} className="w-full max-w-sm bg-card ring-1 ring-border rounded-xl p-6 space-y-3">
+      <form
+        onSubmit={onSubmit}
+        className="w-full max-w-sm bg-card ring-1 ring-border rounded-xl p-6 space-y-3"
+      >
         <h1 className="text-xl font-display font-bold">Set a new password</h1>
         <input
           type="password"

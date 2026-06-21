@@ -24,7 +24,9 @@ function NotificationsPage() {
         const Icon = iconFor[n.kind];
         return (
           <Card key={n.id} className="p-4 flex items-start gap-3">
-            <div className={`size-9 rounded flex items-center justify-center shrink-0 ${toneFor[n.kind]}`}>
+            <div
+              className={`size-9 rounded flex items-center justify-center shrink-0 ${toneFor[n.kind]}`}
+            >
               <Icon className="size-4" />
             </div>
             <div className="flex-1 min-w-0">

@@ -19,16 +19,23 @@ const tone: Record<string, string> = {
 function RisksPage() {
   return (
     <div className="p-6 space-y-4">
-      <PageHeader title="Risk Radar" subtitle="AI-predicted risks across delivery, security, and resourcing." />
+      <PageHeader
+        title="Risk Radar"
+        subtitle="AI-predicted risks across delivery, security, and resourcing."
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {risks.map((r) => (
           <Card key={r.id} className="p-5 space-y-3">
             <div className="flex items-start justify-between">
               <div>
                 <div className="font-display font-semibold">{r.title}</div>
-                <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mt-1">{r.category} · {r.owner}</div>
+                <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mt-1">
+                  {r.category} · {r.owner}
+                </div>
               </div>
-              <Badge variant="outline" className={tone[r.severity]}>{r.severity}</Badge>
+              <Badge variant="outline" className={tone[r.severity]}>
+                {r.severity}
+              </Badge>
             </div>
             <p className="text-sm text-muted-foreground">{r.note}</p>
             <div className="flex justify-between text-xs font-mono pt-2 border-t border-border">

@@ -36,7 +36,16 @@ function richTextToPlain(rt: Array<{ plain_text?: string }> = []) {
   return rt.map((r) => r.plain_text ?? "").join("");
 }
 
-function titleOfPage(page: { properties?: Record<string, { title?: Array<{ plain_text?: string }>; type?: string; rich_text?: Array<{ plain_text?: string }> }>; }) {
+function titleOfPage(page: {
+  properties?: Record<
+    string,
+    {
+      title?: Array<{ plain_text?: string }>;
+      type?: string;
+      rich_text?: Array<{ plain_text?: string }>;
+    }
+  >;
+}) {
   const props = page.properties ?? {};
   for (const v of Object.values(props)) {
     if (v.type === "title" && v.title) return richTextToPlain(v.title);
@@ -120,7 +129,8 @@ const linearTools = {
     },
   }),
   linear_create_issue: tool({
-    description: "Create a Linear issue. Requires teamId (use linear_list_teams to find it) and title.",
+    description:
+      "Create a Linear issue. Requires teamId (use linear_list_teams to find it) and title.",
     inputSchema: z.object({
       teamId: z.string(),
       title: z.string(),

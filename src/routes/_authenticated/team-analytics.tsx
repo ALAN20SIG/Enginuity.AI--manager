@@ -13,7 +13,10 @@ export const Route = createFileRoute("/_authenticated/team-analytics")({
 function TeamAnalyticsPage() {
   return (
     <div className="p-6 space-y-6">
-      <PageHeader title="Team Analytics" subtitle="Productivity, review load, and individual velocity." />
+      <PageHeader
+        title="Team Analytics"
+        subtitle="Productivity, review load, and individual velocity."
+      />
 
       <Card className="p-5">
         <div className="font-display font-semibold mb-4">Velocity by Sprint</div>
@@ -23,7 +26,12 @@ function TeamAnalyticsPage() {
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="sprint" stroke="hsl(var(--muted-foreground))" fontSize={11} />
               <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} />
-              <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))" }} />
+              <Tooltip
+                contentStyle={{
+                  background: "hsl(var(--card))",
+                  border: "1px solid hsl(var(--border))",
+                }}
+              />
               <Bar dataKey="points" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -46,14 +54,18 @@ function TeamAnalyticsPage() {
             {team.map((m) => (
               <tr key={m.id} className="border-t border-border">
                 <td className="p-3 flex items-center gap-2">
-                  <div className="size-7 rounded-full bg-secondary flex items-center justify-center font-mono text-[10px]">{m.initials}</div>
+                  <div className="size-7 rounded-full bg-secondary flex items-center justify-center font-mono text-[10px]">
+                    {m.initials}
+                  </div>
                   {m.name}
                 </td>
                 <td className="p-3 text-muted-foreground">{m.role}</td>
                 <td className="p-3 text-right font-mono">{m.tasks}</td>
                 <td className="p-3 text-right font-mono">{m.reviews}</td>
                 <td className="p-3 text-right font-mono">{m.velocity}</td>
-                <td className="p-3 text-right"><Badge variant="outline">{m.risk}</Badge></td>
+                <td className="p-3 text-right">
+                  <Badge variant="outline">{m.risk}</Badge>
+                </td>
               </tr>
             ))}
           </tbody>

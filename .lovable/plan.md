@@ -18,21 +18,21 @@ A premium MCP-powered AI Engineering Manager SaaS in the "Instrument Flight Deck
 
 ## 3. Pages (all under `_authenticated/`)
 
-| Route | Content |
-|---|---|
-| `/` Dashboard | Engineering Health 92/100 radial + sub-scores, 6 KPI cards w/ sparklines, Velocity trend chart, Current Sprint kanban strip, AI Intelligence Stream sidebar |
-| `/ai-manager` | Chat UI (AI Elements) — left conversation history (localStorage threads), center streaming chat, right context panel + suggested prompt cards |
-| `/projects` | Grid/list toggle, project cards (health, risk, deadline, team), detail tabs (Overview / Tasks / PRs / Team / Risks / Docs) |
-| `/sprints` | Sprint goal, burndown chart, team workload, AI risk cards |
-| `/team-analytics` | Productivity charts, performance table, workload heatmap |
-| `/pull-requests` | PR cards w/ AI review summary, merge readiness, risk score |
-| `/risks` | Categorized risk dashboard + AI prediction cards |
-| `/documentation` | Docs intelligence, AI summaries, missing sections |
-| `/reports` | Generate weekly/sprint/exec/team reports + export actions |
-| `/mcp-connections` | Integration cards (GitHub, Jira, Slack, Notion, Postgres, Linear, GDrive) + 5-step setup wizard |
-| `/agents` | Multi-agent cards (Eng Manager, PM, Code Review, DevOps) w/ status/accuracy |
-| `/notifications` | Unified feed |
-| `/settings` | Team mgmt, roles, API keys, AI provider, MCP config |
+| Route              | Content                                                                                                                                                     |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/` Dashboard      | Engineering Health 92/100 radial + sub-scores, 6 KPI cards w/ sparklines, Velocity trend chart, Current Sprint kanban strip, AI Intelligence Stream sidebar |
+| `/ai-manager`      | Chat UI (AI Elements) — left conversation history (localStorage threads), center streaming chat, right context panel + suggested prompt cards               |
+| `/projects`        | Grid/list toggle, project cards (health, risk, deadline, team), detail tabs (Overview / Tasks / PRs / Team / Risks / Docs)                                  |
+| `/sprints`         | Sprint goal, burndown chart, team workload, AI risk cards                                                                                                   |
+| `/team-analytics`  | Productivity charts, performance table, workload heatmap                                                                                                    |
+| `/pull-requests`   | PR cards w/ AI review summary, merge readiness, risk score                                                                                                  |
+| `/risks`           | Categorized risk dashboard + AI prediction cards                                                                                                            |
+| `/documentation`   | Docs intelligence, AI summaries, missing sections                                                                                                           |
+| `/reports`         | Generate weekly/sprint/exec/team reports + export actions                                                                                                   |
+| `/mcp-connections` | Integration cards (GitHub, Jira, Slack, Notion, Postgres, Linear, GDrive) + 5-step setup wizard                                                             |
+| `/agents`          | Multi-agent cards (Eng Manager, PM, Code Review, DevOps) w/ status/accuracy                                                                                 |
+| `/notifications`   | Unified feed                                                                                                                                                |
+| `/settings`        | Team mgmt, roles, API keys, AI provider, MCP config                                                                                                         |
 
 ## 4. AI Manager (live)
 

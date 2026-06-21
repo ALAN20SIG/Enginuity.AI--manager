@@ -23,13 +23,19 @@ function ReportsPage() {
               </div>
               <div className="flex-1">
                 <div className="font-display font-semibold">{r.name}</div>
-                <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mt-1">{r.frequency}</div>
+                <div className="text-xs font-mono text-muted-foreground uppercase tracking-widest mt-1">
+                  {r.frequency}
+                </div>
               </div>
             </div>
             <p className="text-sm text-muted-foreground">{r.description}</p>
             <div className="flex gap-2 pt-2 border-t border-border">
-              <Button size="sm" variant="default">Generate</Button>
-              <Button size="sm" variant="outline"><Download className="size-3.5 mr-1" /> Export</Button>
+              <Button size="sm" variant="default">
+                Generate
+              </Button>
+              <Button size="sm" variant="outline">
+                <Download className="size-3.5 mr-1" /> Export
+              </Button>
             </div>
           </Card>
         ))}
