@@ -24,8 +24,29 @@ function TeamAnalyticsPage() {
           <ResponsiveContainer>
             <BarChart data={velocityTrend}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-              <XAxis dataKey="sprint" stroke="hsl(var(--muted-foreground))" fontSize={11} />
-              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} />
+              <XAxis
+                dataKey="sprint"
+                stroke="hsl(var(--muted-foreground))"
+                fontSize={11}
+                label={{
+                  value: "Sprint",
+                  position: "insideBottom",
+                  offset: -2,
+                  fill: "hsl(var(--muted-foreground))",
+                  fontSize: 11,
+                }}
+              />
+              <YAxis
+                stroke="hsl(var(--muted-foreground))"
+                fontSize={11}
+                label={{
+                  value: "Story Points",
+                  angle: -90,
+                  position: "insideLeft",
+                  fill: "hsl(var(--muted-foreground))",
+                  fontSize: 11,
+                }}
+              />
               <Tooltip
                 contentStyle={{
                   background: "hsl(var(--card))",
