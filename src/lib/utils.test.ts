@@ -15,5 +15,4 @@ describe("cn", () => {
     const inactive = false;
     expect(cn("base", inactive && "hidden", null, undefined, "")).toBe("base");
   });
-
 });
