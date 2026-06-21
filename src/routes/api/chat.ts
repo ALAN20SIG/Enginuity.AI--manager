@@ -32,20 +32,34 @@ async function notionFetch(path: string, init?: { method?: string; body?: unknow
   return JSON.parse(text);
 }
 
-function richTextToPlain(rt: Array<{ plain_text?: string }> = []) {
-  return rt.map((r) => r.plain_text ?? "").join("");
-}
+type NotionRichText = { plain_text?: string };
 
-function titleOfPage(page: {
+type NotionBlock = {
+  type: string;
+  [key: string]: unknown;
+};
+
+type NotionSearchResult = {
+  id: string;
+  object: string;
+  url: string;
+  last_edited_time: string;
+  title?: NotionRichText[];
   properties?: Record<
     string,
     {
-      title?: Array<{ plain_text?: string }>;
+      title?: NotionRichText[];
       type?: string;
-      rich_text?: Array<{ plain_text?: string }>;
+      rich_text?: NotionRichText[];
     }
   >;
-}) {
+};
+
+function richTextToPlain(rt: NotionRichText[] = []) {
+  return rt.map((r) => r.plain_text ?? "").join("");
+}
+
+function titleOfPage(page: { properties?: NotionSearchResult["properties"] }) {
   const props = page.properties ?? {};
   for (const v of Object.values(props)) {
     if (v.type === "title" && v.title) return richTextToPlain(v.title);
@@ -53,12 +67,13 @@ function titleOfPage(page: {
   return "(untitled)";
 }
 
-function blockToText(block: any): string {
+function blockToText(block: NotionBlock): string {
   const t = block.type;
-  const node = block[t];
+  const node = block[t] as Record<string, unknown> | undefined;
   if (!node) return "";
-  if (Array.isArray(node.rich_text)) {
-    const txt = richTextToPlain(node.rich_text);
+  const richText = node.rich_text;
+  if (Array.isArray(richText)) {
+    const txt = richTextToPlain(richText as NotionRichText[]);
     if (t === "heading_1") return `\n# ${txt}\n`;
     if (t === "heading_2") return `\n## ${txt}\n`;
     if (t === "heading_3") return `\n### ${txt}\n`;
