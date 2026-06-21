@@ -36,8 +36,29 @@ function SprintsPage() {
             <ResponsiveContainer>
               <LineChart data={burndown}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                <XAxis dataKey="day" stroke="hsl(var(--muted-foreground))" fontSize={11} />
-                <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} />
+                <XAxis
+                  dataKey="day"
+                  stroke="hsl(var(--muted-foreground))"
+                  fontSize={11}
+                  label={{
+                    value: "Day",
+                    position: "insideBottom",
+                    offset: -2,
+                    fill: "hsl(var(--muted-foreground))",
+                    fontSize: 11,
+                  }}
+                />
+                <YAxis
+                  stroke="hsl(var(--muted-foreground))"
+                  fontSize={11}
+                  label={{
+                    value: "Points Remaining",
+                    angle: -90,
+                    position: "insideLeft",
+                    fill: "hsl(var(--muted-foreground))",
+                    fontSize: 11,
+                  }}
+                />
                 <Tooltip
                   contentStyle={{
                     background: "hsl(var(--card))",
