@@ -61,7 +61,7 @@ function Dashboard() {
                   <RadialBarChart
                     innerRadius="75%"
                     outerRadius="100%"
-                    data={[{ name: "score", value: kpis.health.value, fill: "var(--primary)" }]}
+                    data={[{ name: "score", value: kpis.health.value, fill: "var(--chart-1)" }]}
                     startAngle={90}
                     endAngle={-270}
                   >
