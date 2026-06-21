@@ -32,7 +32,7 @@ function TeamAnalyticsPage() {
                   border: "1px solid hsl(var(--border))",
                 }}
               />
-              <Bar dataKey="points" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="points" fill="var(--chart-3)" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
