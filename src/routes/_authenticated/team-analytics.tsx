@@ -26,24 +26,24 @@ function TeamAnalyticsPage() {
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis
                 dataKey="sprint"
-                stroke="hsl(var(--muted-foreground))"
+                stroke="hsl(var(--foreground))"
                 fontSize={11}
                 label={{
                   value: "Sprint",
                   position: "insideBottom",
                   offset: -2,
-                  fill: "hsl(var(--muted-foreground))",
+                  fill: "hsl(var(--foreground))",
                   fontSize: 11,
                 }}
               />
               <YAxis
-                stroke="hsl(var(--muted-foreground))"
+                stroke="hsl(var(--foreground))"
                 fontSize={11}
                 label={{
                   value: "Story Points",
                   angle: -90,
                   position: "insideLeft",
-                  fill: "hsl(var(--muted-foreground))",
+                  fill: "hsl(var(--foreground))",
                   fontSize: 11,
                 }}
               />
