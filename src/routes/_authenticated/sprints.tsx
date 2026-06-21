@@ -38,24 +38,24 @@ function SprintsPage() {
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                 <XAxis
                   dataKey="day"
-                  stroke="hsl(var(--muted-foreground))"
+                  stroke="hsl(var(--foreground))"
                   fontSize={11}
                   label={{
                     value: "Day",
                     position: "insideBottom",
                     offset: -2,
-                    fill: "hsl(var(--muted-foreground))",
+                    fill: "hsl(var(--foreground))",
                     fontSize: 11,
                   }}
                 />
                 <YAxis
-                  stroke="hsl(var(--muted-foreground))"
+                  stroke="hsl(var(--foreground))"
                   fontSize={11}
                   label={{
                     value: "Points Remaining",
                     angle: -90,
                     position: "insideLeft",
-                    fill: "hsl(var(--muted-foreground))",
+                    fill: "hsl(var(--foreground))",
                     fontSize: 11,
                   }}
                 />
