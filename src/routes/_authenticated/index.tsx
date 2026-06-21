@@ -67,7 +67,7 @@ function Dashboard() {
                   >
                     <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
                     <RadialBar
-                      background={{ fill: "rgba(255,255,255,0.05)" }}
+                      background={{ fill: "hsl(var(--muted))" }}
                       dataKey="value"
                       cornerRadius={8}
                     />
