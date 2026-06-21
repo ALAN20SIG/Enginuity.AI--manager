@@ -88,7 +88,7 @@ function Dashboard() {
                       <span className="text-foreground">{h.score}</span>
                     </div>
                     <div className="h-1 bg-secondary rounded-full overflow-hidden">
-                      <div className="h-full bg-primary" style={{ width: `${h.score}%` }} />
+                      <div className="h-full bg-chart-1" style={{ width: `${h.score}%` }} />
                     </div>
                   </div>
                 ))}
