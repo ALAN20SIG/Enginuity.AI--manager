@@ -182,7 +182,7 @@ const notionTools = {
       if (query) body.query = query;
       if (filter) body.filter = { value: filter, property: "object" };
       const data = await notionFetch("/search", { method: "POST", body });
-      return (data.results ?? []).map((r: any) => ({
+      return (data.results ?? []).map((r: NotionSearchResult) => ({
         id: r.id,
         object: r.object,
         url: r.url,
@@ -215,7 +215,7 @@ const notionTools = {
     }),
     execute: async ({ pageId, maxBlocks = 100 }) => {
       let cursor: string | undefined;
-      const blocks: any[] = [];
+      const blocks: NotionBlock[] = [];
       while (blocks.length < maxBlocks) {
         const qs = new URLSearchParams({ page_size: "100" });
         if (cursor) qs.set("start_cursor", cursor);
