@@ -84,7 +84,11 @@ function AuthPage() {
         </div>
         <div className="bg-card ring-1 ring-border rounded-xl p-6">
           <h1 className="text-xl font-display font-bold mb-1">
-            {mode === "signup" ? "Create account" : mode === "forgot" ? "Reset password" : "Welcome back"}
+            {mode === "signup"
+              ? "Create account"
+              : mode === "forgot"
+                ? "Reset password"
+                : "Welcome back"}
           </h1>
           <p className="text-sm text-muted-foreground mb-6">
             {mode === "signup"
@@ -96,7 +100,9 @@ function AuthPage() {
 
           <form onSubmit={onSubmit} className="space-y-3">
             <div>
-              <label className="text-[10px] font-mono uppercase text-muted-foreground tracking-widest">Email</label>
+              <label className="text-[10px] font-mono uppercase text-muted-foreground tracking-widest">
+                Email
+              </label>
               <input
                 type="email"
                 required
@@ -107,7 +113,9 @@ function AuthPage() {
             </div>
             {mode !== "forgot" && (
               <div>
-                <label className="text-[10px] font-mono uppercase text-muted-foreground tracking-widest">Password</label>
+                <label className="text-[10px] font-mono uppercase text-muted-foreground tracking-widest">
+                  Password
+                </label>
                 <input
                   type="password"
                   required
@@ -123,7 +131,13 @@ function AuthPage() {
               disabled={loading}
               className="w-full bg-primary text-primary-foreground rounded-md py-2 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
             >
-              {loading ? "Working…" : mode === "signup" ? "Create account" : mode === "forgot" ? "Send reset link" : "Sign in"}
+              {loading
+                ? "Working…"
+                : mode === "signup"
+                  ? "Create account"
+                  : mode === "forgot"
+                    ? "Send reset link"
+                    : "Sign in"}
             </button>
           </form>
 
@@ -139,7 +153,24 @@ function AuthPage() {
                 disabled={loading}
                 className="w-full border border-border rounded-md py-2 text-sm font-medium hover:bg-secondary transition-colors flex items-center justify-center gap-2"
               >
-                <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.3 6.5 29.4 4.5 24 4.5 13.2 4.5 4.5 13.2 4.5 24S13.2 43.5 24 43.5 43.5 34.8 43.5 24c0-1.2-.1-2.4-.3-3.5z"/><path fill="#FF3D00" d="M6.3 14.1l6.6 4.8C14.8 15 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.3 6.5 29.4 4.5 24 4.5 16.3 4.5 9.7 8.8 6.3 14.1z"/><path fill="#4CAF50" d="M24 43.5c5.3 0 10.1-2 13.7-5.3l-6.3-5.3c-2 1.4-4.6 2.2-7.4 2.2-5.3 0-9.7-3.4-11.3-8l-6.5 5C9.6 38.6 16.2 43.5 24 43.5z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.3 5.3c-.4.4 6.7-4.9 6.7-15 0-1.2-.1-2.4-.4-3.5z"/></svg>
+                <svg width="16" height="16" viewBox="0 0 48 48">
+                  <path
+                    fill="#FFC107"
+                    d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.3 6.5 29.4 4.5 24 4.5 13.2 4.5 4.5 13.2 4.5 24S13.2 43.5 24 43.5 43.5 34.8 43.5 24c0-1.2-.1-2.4-.3-3.5z"
+                  />
+                  <path
+                    fill="#FF3D00"
+                    d="M6.3 14.1l6.6 4.8C14.8 15 19 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.3 6.5 29.4 4.5 24 4.5 16.3 4.5 9.7 8.8 6.3 14.1z"
+                  />
+                  <path
+                    fill="#4CAF50"
+                    d="M24 43.5c5.3 0 10.1-2 13.7-5.3l-6.3-5.3c-2 1.4-4.6 2.2-7.4 2.2-5.3 0-9.7-3.4-11.3-8l-6.5 5C9.6 38.6 16.2 43.5 24 43.5z"
+                  />
+                  <path
+                    fill="#1976D2"
+                    d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.7l6.3 5.3c-.4.4 6.7-4.9 6.7-15 0-1.2-.1-2.4-.4-3.5z"
+                  />
+                </svg>
                 Continue with Google
               </button>
             </>
@@ -148,23 +179,36 @@ function AuthPage() {
           <div className="mt-6 text-center text-xs text-muted-foreground space-x-2">
             {mode === "signin" && (
               <>
-                <button onClick={() => setMode("signup")} className="hover:text-foreground">Create account</button>
+                <button onClick={() => setMode("signup")} className="hover:text-foreground">
+                  Create account
+                </button>
                 <span>·</span>
-                <button onClick={() => setMode("forgot")} className="hover:text-foreground">Forgot password</button>
+                <button onClick={() => setMode("forgot")} className="hover:text-foreground">
+                  Forgot password
+                </button>
               </>
             )}
             {mode === "signup" && (
-              <button onClick={() => setMode("signin")} className="hover:text-foreground">Already have an account? Sign in</button>
+              <button onClick={() => setMode("signin")} className="hover:text-foreground">
+                Already have an account? Sign in
+              </button>
             )}
             {mode === "forgot" && (
-              <button onClick={() => setMode("signin")} className="hover:text-foreground">Back to sign in</button>
+              <button onClick={() => setMode("signin")} className="hover:text-foreground">
+                Back to sign in
+              </button>
             )}
           </div>
         </div>
         <p className="mt-6 text-center text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
           Enginuity AI · Engineering control plane
         </p>
-        <Link to="/" className="block mt-3 text-center text-xs text-muted-foreground hover:text-foreground">← Back home</Link>
+        <Link
+          to="/"
+          className="block mt-3 text-center text-xs text-muted-foreground hover:text-foreground"
+        >
+          ← Back home
+        </Link>
       </div>
     </div>
   );

@@ -1,7 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, RadialBarChart, RadialBar, PolarAngleAxis, AreaChart, Area } from "recharts";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  RadialBarChart,
+  RadialBar,
+  PolarAngleAxis,
+  AreaChart,
+  Area,
+} from "recharts";
 import { ArrowDownRight, ArrowUpRight, Send, Sparkles } from "lucide-react";
-import { kpis, healthBreakdown, velocityTrend, sprint, insights } from "@/lib/mock/engineering-data";
+import {
+  kpis,
+  healthBreakdown,
+  velocityTrend,
+  sprint,
+  insights,
+} from "@/lib/mock/engineering-data";
 
 export const Route = createFileRoute("/_authenticated/")({
   head: () => ({ meta: [{ title: "Dashboard — Enginuity AI" }] }),
@@ -27,21 +46,37 @@ function Dashboard() {
           <div className="relative">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Engineering Health</h3>
+                <h3 className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
+                  Engineering Health
+                </h3>
                 <p className="text-sm text-foreground/80">Composite Org Score</p>
               </div>
-              <div className="px-2 py-1 bg-primary/10 text-primary font-mono text-[10px] rounded">+{kpis.health.delta}%</div>
+              <div className="px-2 py-1 bg-primary/10 text-primary font-mono text-[10px] rounded">
+                +{kpis.health.delta}%
+              </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="relative size-32">
                 <ResponsiveContainer width="100%" height="100%">
-                  <RadialBarChart innerRadius="75%" outerRadius="100%" data={[{ name: "score", value: kpis.health.value, fill: "var(--primary)" }]} startAngle={90} endAngle={-270}>
+                  <RadialBarChart
+                    innerRadius="75%"
+                    outerRadius="100%"
+                    data={[{ name: "score", value: kpis.health.value, fill: "var(--primary)" }]}
+                    startAngle={90}
+                    endAngle={-270}
+                  >
                     <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
-                    <RadialBar background={{ fill: "rgba(255,255,255,0.05)" }} dataKey="value" cornerRadius={8} />
+                    <RadialBar
+                      background={{ fill: "rgba(255,255,255,0.05)" }}
+                      dataKey="value"
+                      cornerRadius={8}
+                    />
                   </RadialBarChart>
                 </ResponsiveContainer>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <span className="text-4xl font-display font-extrabold leading-none">{kpis.health.value}</span>
+                  <span className="text-4xl font-display font-extrabold leading-none">
+                    {kpis.health.value}
+                  </span>
                   <span className="text-[10px] font-mono text-muted-foreground mt-1">/ 100</span>
                 </div>
               </div>
@@ -62,11 +97,18 @@ function Dashboard() {
             <div className="mt-6 grid grid-cols-2 gap-4 border-t border-border pt-4">
               <div>
                 <div className="text-[10px] font-mono text-muted-foreground uppercase">MTTR</div>
-                <div className="text-base font-display font-bold">{kpis.mttr.value} <span className="text-xs text-primary font-normal">{kpis.mttr.delta}</span></div>
+                <div className="text-base font-display font-bold">
+                  {kpis.mttr.value}{" "}
+                  <span className="text-xs text-primary font-normal">{kpis.mttr.delta}</span>
+                </div>
               </div>
               <div>
-                <div className="text-[10px] font-mono text-muted-foreground uppercase">Deploy Freq</div>
-                <div className="text-base font-display font-bold">12/d <span className="text-xs text-primary font-normal">+4</span></div>
+                <div className="text-[10px] font-mono text-muted-foreground uppercase">
+                  Deploy Freq
+                </div>
+                <div className="text-base font-display font-bold">
+                  12/d <span className="text-xs text-primary font-normal">+4</span>
+                </div>
               </div>
             </div>
           </div>
@@ -78,12 +120,29 @@ function Dashboard() {
             const delta = typeof k.delta === "number" ? k.delta : 0;
             const positive = delta >= 0;
             return (
-              <div key={k.key} className="bg-card ring-1 ring-border rounded-xl p-4 flex flex-col justify-between animate-fade-up hover:ring-primary/30 transition-all" style={{ animationDelay: `${40 + i * 40}ms` }}>
-                <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">{k.key}</div>
+              <div
+                key={k.key}
+                className="bg-card ring-1 ring-border rounded-xl p-4 flex flex-col justify-between animate-fade-up hover:ring-primary/30 transition-all"
+                style={{ animationDelay: `${40 + i * 40}ms` }}
+              >
+                <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
+                  {k.key}
+                </div>
                 <div className="flex items-end justify-between mt-2">
-                  <span className="text-3xl font-display font-bold">{k.value}{"suffix" in k && k.suffix ? <span className="text-base text-muted-foreground ml-0.5">{k.suffix}</span> : null}</span>
-                  <div className={`flex items-center gap-1 text-[10px] font-mono ${positive ? "text-primary" : "text-destructive"}`}>
-                    {positive ? <ArrowUpRight className="size-3" /> : <ArrowDownRight className="size-3" />}
+                  <span className="text-3xl font-display font-bold">
+                    {k.value}
+                    {"suffix" in k && k.suffix ? (
+                      <span className="text-base text-muted-foreground ml-0.5">{k.suffix}</span>
+                    ) : null}
+                  </span>
+                  <div
+                    className={`flex items-center gap-1 text-[10px] font-mono ${positive ? "text-primary" : "text-destructive"}`}
+                  >
+                    {positive ? (
+                      <ArrowUpRight className="size-3" />
+                    ) : (
+                      <ArrowDownRight className="size-3" />
+                    )}
                     {Math.abs(delta)}
                   </div>
                 </div>
@@ -99,8 +158,12 @@ function Dashboard() {
             <div className="border-b border-border px-6 py-4 flex items-center justify-between">
               <h3 className="font-display font-bold">Velocity Trend</h3>
               <div className="flex gap-2">
-                <button className="px-3 py-1 bg-secondary border border-border rounded text-[10px] font-mono uppercase">Weekly</button>
-                <button className="px-3 py-1 hover:bg-secondary rounded text-[10px] font-mono uppercase text-muted-foreground">Monthly</button>
+                <button className="px-3 py-1 bg-secondary border border-border rounded text-[10px] font-mono uppercase">
+                  Weekly
+                </button>
+                <button className="px-3 py-1 hover:bg-secondary rounded text-[10px] font-mono uppercase text-muted-foreground">
+                  Monthly
+                </button>
               </div>
             </div>
             <div className="p-4 h-64">
@@ -115,9 +178,28 @@ function Dashboard() {
                   <CartesianGrid stroke="rgba(255,255,255,0.04)" />
                   <XAxis dataKey="sprint" stroke="#71717a" fontSize={10} />
                   <YAxis stroke="#71717a" fontSize={10} />
-                  <Tooltip contentStyle={{ background: "#121214", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }} />
-                  <Area type="monotone" dataKey="ideal" stroke="#52525b" strokeDasharray="4 4" fill="none" />
-                  <Area type="monotone" dataKey="points" stroke="var(--primary)" fill="url(#v)" strokeWidth={2} />
+                  <Tooltip
+                    contentStyle={{
+                      background: "#121214",
+                      border: "1px solid #27272a",
+                      borderRadius: 8,
+                      fontSize: 12,
+                    }}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="ideal"
+                    stroke="#52525b"
+                    strokeDasharray="4 4"
+                    fill="none"
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="points"
+                    stroke="var(--primary)"
+                    fill="url(#v)"
+                    strokeWidth={2}
+                  />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -126,7 +208,9 @@ function Dashboard() {
           <div className="bg-card ring-1 ring-border rounded-xl overflow-hidden animate-fade-up">
             <div className="border-b border-border px-6 py-4 flex items-center justify-between">
               <h3 className="font-display font-bold">Current Sprint: {sprint.name}</h3>
-              <span className="text-xs font-mono text-muted-foreground">{sprint.completedPoints} / {sprint.totalPoints} pts · {sprint.daysRemaining}d left</span>
+              <span className="text-xs font-mono text-muted-foreground">
+                {sprint.completedPoints} / {sprint.totalPoints} pts · {sprint.daysRemaining}d left
+              </span>
             </div>
             <div className="p-4 grid grid-cols-4 gap-3">
               {[
@@ -135,15 +219,22 @@ function Dashboard() {
                 { label: "Review", items: sprint.columns.review, color: "border-accent" },
                 { label: "Done", items: sprint.columns.done, color: "border-emerald-900" },
               ].map((col) => (
-                <div key={col.label} className={`bg-background/40 p-3 rounded-lg border-l-2 ${col.color}`}>
-                  <div className="text-[10px] font-mono text-muted-foreground mb-3 uppercase tracking-widest">{col.label} ({col.items.length})</div>
+                <div
+                  key={col.label}
+                  className={`bg-background/40 p-3 rounded-lg border-l-2 ${col.color}`}
+                >
+                  <div className="text-[10px] font-mono text-muted-foreground mb-3 uppercase tracking-widest">
+                    {col.label} ({col.items.length})
+                  </div>
                   <div className="space-y-2">
                     {col.items.slice(0, 2).map((t) => (
                       <div key={t.id} className="bg-card border border-border p-2.5 rounded">
                         <div className="text-[11px] font-medium leading-tight mb-2">{t.title}</div>
                         <div className="flex items-center justify-between">
                           <span className="text-[9px] font-mono text-muted-foreground">{t.id}</span>
-                          <span className="size-5 rounded-full bg-secondary text-[9px] font-mono flex items-center justify-center">{t.assignee}</span>
+                          <span className="size-5 rounded-full bg-secondary text-[9px] font-mono flex items-center justify-center">
+                            {t.assignee}
+                          </span>
                         </div>
                       </div>
                     ))}
@@ -164,12 +255,20 @@ function Dashboard() {
             </div>
             <div className="flex-1 space-y-5 overflow-y-auto pr-2">
               {insights.map((ins, i) => {
-                const colorMap = { risk: "border-accent text-accent", wins: "border-primary text-primary", info: "border-zinc-700 text-muted-foreground" };
+                const colorMap = {
+                  risk: "border-accent text-accent",
+                  wins: "border-primary text-primary",
+                  info: "border-zinc-700 text-muted-foreground",
+                };
                 const c = colorMap[ins.kind];
                 return (
                   <div key={i} className={`relative pl-4 border-l ${c.split(" ")[0]}/40`}>
-                    <div className={`absolute -left-[4.5px] top-0 size-2 ${c.split(" ")[0].replace("border", "bg")} rounded-full`} />
-                    <div className={`text-[10px] font-mono uppercase mb-1 ${c.split(" ")[1]}`}>{ins.title}</div>
+                    <div
+                      className={`absolute -left-[4.5px] top-0 size-2 ${c.split(" ")[0].replace("border", "bg")} rounded-full`}
+                    />
+                    <div className={`text-[10px] font-mono uppercase mb-1 ${c.split(" ")[1]}`}>
+                      {ins.title}
+                    </div>
                     <p className="text-sm text-foreground/90 leading-snug">{ins.body}</p>
                   </div>
                 );

@@ -20,13 +20,20 @@ const statusTone: Record<string, string> = {
 function PRPage() {
   return (
     <div className="p-6 space-y-4">
-      <PageHeader title="Pull Request Insights" subtitle="AI-augmented review across 8 repositories." />
+      <PageHeader
+        title="Pull Request Insights"
+        subtitle="AI-augmented review across 8 repositories."
+      />
       {pullRequests.map((pr) => (
         <Card key={pr.id} className="p-5">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground mb-1">
-                <span>#{pr.id}</span><span>·</span><span>{pr.repo}</span><span>·</span><span>{pr.author}</span>
+                <span>#{pr.id}</span>
+                <span>·</span>
+                <span>{pr.repo}</span>
+                <span>·</span>
+                <span>{pr.author}</span>
               </div>
               <div className="font-display font-medium">{pr.title}</div>
               <p className="text-sm text-muted-foreground mt-2">{pr.summary}</p>
@@ -37,8 +44,12 @@ function PRPage() {
               </div>
             </div>
             <div className="flex flex-col items-end gap-2">
-              <Badge variant="outline" className={statusTone[pr.status]}>{pr.status}</Badge>
-              <div className="text-xs font-mono text-muted-foreground">Risk <span className="text-foreground">{pr.risk}</span></div>
+              <Badge variant="outline" className={statusTone[pr.status]}>
+                {pr.status}
+              </Badge>
+              <div className="text-xs font-mono text-muted-foreground">
+                Risk <span className="text-foreground">{pr.risk}</span>
+              </div>
             </div>
           </div>
         </Card>

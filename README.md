@@ -33,21 +33,21 @@ Enginuity AI is an "instrument flight deck" for engineering managers. It combine
 
 ## Features
 
-| Area | Capability |
-|------|------------|
-| **Dashboard** | Engineering Health score (92/100), KPI sparklines, velocity trend, current sprint kanban strip, AI intelligence stream |
-| **AI Manager** | Streaming chat, thread history, suggested prompts, live Linear/Notion tool calling |
-| **Projects** | Grid/list views, project cards with health, risk, deadline, team, and detail tabs |
-| **Sprints** | Sprint goal, burndown chart, team workload, AI risk cards |
-| **Team Analytics** | Productivity charts, performance table, workload heatmap |
-| **Pull Requests** | PR cards with AI review summary, merge readiness, risk score |
-| **Risks** | Categorized risk dashboard + AI prediction cards |
-| **Documentation** | Docs intelligence, AI summaries, missing-section detection |
-| **Reports** | Weekly / sprint / exec / team report generation + export actions |
-| **MCP Connections** | Connector cards + 5-step setup wizard |
-| **Agents** | Multi-agent cards (Eng Manager, PM, Code Review, DevOps) with status & accuracy |
-| **Notifications** | Unified activity feed |
-| **Settings** | Team management, roles, API keys, AI provider, MCP config |
+| Area                | Capability                                                                                                             |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **Dashboard**       | Engineering Health score (92/100), KPI sparklines, velocity trend, current sprint kanban strip, AI intelligence stream |
+| **AI Manager**      | Streaming chat, thread history, suggested prompts, live Linear/Notion tool calling                                     |
+| **Projects**        | Grid/list views, project cards with health, risk, deadline, team, and detail tabs                                      |
+| **Sprints**         | Sprint goal, burndown chart, team workload, AI risk cards                                                              |
+| **Team Analytics**  | Productivity charts, performance table, workload heatmap                                                               |
+| **Pull Requests**   | PR cards with AI review summary, merge readiness, risk score                                                           |
+| **Risks**           | Categorized risk dashboard + AI prediction cards                                                                       |
+| **Documentation**   | Docs intelligence, AI summaries, missing-section detection                                                             |
+| **Reports**         | Weekly / sprint / exec / team report generation + export actions                                                       |
+| **MCP Connections** | Connector cards + 5-step setup wizard                                                                                  |
+| **Agents**          | Multi-agent cards (Eng Manager, PM, Code Review, DevOps) with status & accuracy                                        |
+| **Notifications**   | Unified activity feed                                                                                                  |
+| **Settings**        | Team management, roles, API keys, AI provider, MCP config                                                              |
 
 ## Project Structure
 
@@ -110,14 +110,14 @@ bun run preview
 
 ## Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `bun dev` | Start the Vite dev server |
-| `bun run build` | Production build |
-| `bun run build:dev` | Development mode build |
-| `bun run preview` | Preview the production build |
-| `bun run lint` | Run ESLint |
-| `bun run format` | Format code with Prettier |
+| Script              | Description                  |
+| ------------------- | ---------------------------- |
+| `bun dev`           | Start the Vite dev server    |
+| `bun run build`     | Production build             |
+| `bun run build:dev` | Development mode build       |
+| `bun run preview`   | Preview the production build |
+| `bun run lint`      | Run ESLint                   |
+| `bun run format`    | Format code with Prettier    |
 
 ## Environment Variables
 
@@ -182,12 +182,14 @@ For self-hosting, the codebase uses standard open-source packages and can be dep
 ## Roadmap / Out of Scope
 
 Currently implemented in V1:
+
 - Full UI with mocked engineering data
 - Auth + route protection
 - Streaming AI chat
 - Linear & Notion tool calling (when keys are configured)
 
 Not yet implemented:
+
 - Real GitHub/Jira/Slack API integrations (UI present, backend pending)
 - Database-backed multi-tenant organizations
 - PDF export / email delivery for reports

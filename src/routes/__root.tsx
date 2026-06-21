@@ -80,15 +80,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Enginuity AI — AI Software Engineering Manager" },
       {
         name: "description",
-        content:
-          "MCP-powered AI tech lead and engineering manager for modern software teams.",
+        content: "MCP-powered AI tech lead and engineering manager for modern software teams.",
       },
       { name: "author", content: "Enginuity AI" },
       { property: "og:title", content: "Enginuity AI" },
       {
         property: "og:description",
-        content:
-          "MCP-powered AI tech lead and engineering manager for modern software teams.",
+        content: "MCP-powered AI tech lead and engineering manager for modern software teams.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

@@ -27,9 +27,13 @@ function ProjectsPage() {
             <div className="flex items-start justify-between">
               <div>
                 <div className="font-display font-semibold">{p.name}</div>
-                <div className="text-xs text-muted-foreground font-mono uppercase tracking-widest mt-1">{p.team}</div>
+                <div className="text-xs text-muted-foreground font-mono uppercase tracking-widest mt-1">
+                  {p.team}
+                </div>
               </div>
-              <Badge variant="outline" className={riskTone[p.risk]}>{p.risk}</Badge>
+              <Badge variant="outline" className={riskTone[p.risk]}>
+                {p.risk}
+              </Badge>
             </div>
             <p className="text-sm text-muted-foreground">{p.description}</p>
             <div className="space-y-1.5">
@@ -40,8 +44,12 @@ function ProjectsPage() {
               <Progress value={p.progress} className="h-1.5" />
             </div>
             <div className="flex justify-between text-xs font-mono pt-2 border-t border-border">
-              <span className="text-muted-foreground">Health <span className="text-foreground">{p.health}</span></span>
-              <span className="text-muted-foreground">Due <span className="text-foreground">{p.deadline}</span></span>
+              <span className="text-muted-foreground">
+                Health <span className="text-foreground">{p.health}</span>
+              </span>
+              <span className="text-muted-foreground">
+                Due <span className="text-foreground">{p.deadline}</span>
+              </span>
             </div>
           </Card>
         ))}

@@ -32,11 +32,34 @@ async function notionFetch(path: string, init?: { method?: string; body?: unknow
   return JSON.parse(text);
 }
 
-function richTextToPlain(rt: Array<{ plain_text?: string }> = []) {
+type NotionRichText = { plain_text?: string };
+
+type NotionBlock = {
+  type: string;
+  [key: string]: unknown;
+};
+
+type NotionSearchResult = {
+  id: string;
+  object: string;
+  url: string;
+  last_edited_time: string;
+  title?: NotionRichText[];
+  properties?: Record<
+    string,
+    {
+      title?: NotionRichText[];
+      type?: string;
+      rich_text?: NotionRichText[];
+    }
+  >;
+};
+
+function richTextToPlain(rt: NotionRichText[] = []) {
   return rt.map((r) => r.plain_text ?? "").join("");
 }
 
-function titleOfPage(page: { properties?: Record<string, { title?: Array<{ plain_text?: string }>; type?: string; rich_text?: Array<{ plain_text?: string }> }>; }) {
+function titleOfPage(page: { properties?: NotionSearchResult["properties"] }) {
   const props = page.properties ?? {};
   for (const v of Object.values(props)) {
     if (v.type === "title" && v.title) return richTextToPlain(v.title);
@@ -44,12 +67,13 @@ function titleOfPage(page: { properties?: Record<string, { title?: Array<{ plain
   return "(untitled)";
 }
 
-function blockToText(block: any): string {
+function blockToText(block: NotionBlock): string {
   const t = block.type;
-  const node = block[t];
+  const node = block[t] as Record<string, unknown> | undefined;
   if (!node) return "";
-  if (Array.isArray(node.rich_text)) {
-    const txt = richTextToPlain(node.rich_text);
+  const richText = node.rich_text;
+  if (Array.isArray(richText)) {
+    const txt = richTextToPlain(richText as NotionRichText[]);
     if (t === "heading_1") return `\n# ${txt}\n`;
     if (t === "heading_2") return `\n## ${txt}\n`;
     if (t === "heading_3") return `\n### ${txt}\n`;
@@ -120,7 +144,8 @@ const linearTools = {
     },
   }),
   linear_create_issue: tool({
-    description: "Create a Linear issue. Requires teamId (use linear_list_teams to find it) and title.",
+    description:
+      "Create a Linear issue. Requires teamId (use linear_list_teams to find it) and title.",
     inputSchema: z.object({
       teamId: z.string(),
       title: z.string(),
@@ -157,7 +182,7 @@ const notionTools = {
       if (query) body.query = query;
       if (filter) body.filter = { value: filter, property: "object" };
       const data = await notionFetch("/search", { method: "POST", body });
-      return (data.results ?? []).map((r: any) => ({
+      return (data.results ?? []).map((r: NotionSearchResult) => ({
         id: r.id,
         object: r.object,
         url: r.url,
@@ -190,7 +215,7 @@ const notionTools = {
     }),
     execute: async ({ pageId, maxBlocks = 100 }) => {
       let cursor: string | undefined;
-      const blocks: any[] = [];
+      const blocks: NotionBlock[] = [];
       while (blocks.length < maxBlocks) {
         const qs = new URLSearchParams({ page_size: "100" });
         if (cursor) qs.set("start_cursor", cursor);

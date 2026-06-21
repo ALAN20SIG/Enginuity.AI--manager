@@ -21,7 +21,10 @@ const statusTone: Record<string, string> = {
 function MCPPage() {
   return (
     <div className="p-6 space-y-4">
-      <PageHeader title="MCP Connections" subtitle="Model Context Protocol nodes feeding the engineering brain." />
+      <PageHeader
+        title="MCP Connections"
+        subtitle="Model Context Protocol nodes feeding the engineering brain."
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {integrations.map((i) => (
           <Card key={i.id} className="p-5 space-y-3">
@@ -32,15 +35,24 @@ function MCPPage() {
                 </div>
                 <div>
                   <div className="font-display font-semibold">{i.name}</div>
-                  <div className="text-xs font-mono text-muted-foreground mt-0.5">Last sync · {i.lastSync}</div>
+                  <div className="text-xs font-mono text-muted-foreground mt-0.5">
+                    Last sync · {i.lastSync}
+                  </div>
                 </div>
               </div>
-              <Badge variant="outline" className={statusTone[i.status]}>{i.status}</Badge>
+              <Badge variant="outline" className={statusTone[i.status]}>
+                {i.status}
+              </Badge>
             </div>
             {i.scopes.length > 0 && (
               <div className="flex flex-wrap gap-1.5">
                 {i.scopes.map((s) => (
-                  <span key={s} className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-border text-muted-foreground">{s}</span>
+                  <span
+                    key={s}
+                    className="text-[10px] font-mono px-1.5 py-0.5 rounded border border-border text-muted-foreground"
+                  >
+                    {s}
+                  </span>
                 ))}
               </div>
             )}

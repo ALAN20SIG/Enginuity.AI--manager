@@ -14,7 +14,10 @@ export const Route = createFileRoute("/_authenticated/settings")({
 function SettingsPage() {
   return (
     <div className="p-6 space-y-6 max-w-3xl">
-      <PageHeader title="Settings" subtitle="Workspace, AI provider, and integration preferences." />
+      <PageHeader
+        title="Settings"
+        subtitle="Workspace, AI provider, and integration preferences."
+      />
 
       <Card className="p-5 space-y-4">
         <div className="font-display font-semibold">Workspace</div>
@@ -37,14 +40,18 @@ function SettingsPage() {
         <div className="flex items-center justify-between">
           <div>
             <div className="text-sm font-medium">Enable proactive insights</div>
-            <div className="text-xs text-muted-foreground">Agents will surface risk cards without prompting.</div>
+            <div className="text-xs text-muted-foreground">
+              Agents will surface risk cards without prompting.
+            </div>
           </div>
           <Switch defaultChecked />
         </div>
         <div className="flex items-center justify-between">
           <div>
             <div className="text-sm font-medium">Auto-summarize PRs</div>
-            <div className="text-xs text-muted-foreground">New PRs get an AI summary within 60 seconds.</div>
+            <div className="text-xs text-muted-foreground">
+              New PRs get an AI summary within 60 seconds.
+            </div>
           </div>
           <Switch defaultChecked />
         </div>
