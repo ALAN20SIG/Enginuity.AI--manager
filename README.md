@@ -2,6 +2,8 @@
 
 A premium MCP-powered AI Engineering Manager SaaS. Enginuity AI gives engineering leaders a real-time command center for health, velocity, risks, and team intelligence — augmented by an AI Manager that can query live Linear issues and Notion documentation through Lovable-managed connectors.
 
+> **In one sentence:** Enginuity AI is an AI-powered engineering management command center that surfaces real-time team health, velocity, risks, and actionable intelligence through a conversational manager interface.
+
 ![Tech Stack](https://img.shields.io/badge/TanStack%20Start-v1-blue?logo=react)
 ![React](https://img.shields.io/badge/React-19-blue?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?logo=typescript)
