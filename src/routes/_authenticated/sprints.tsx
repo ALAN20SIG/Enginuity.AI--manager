@@ -61,9 +61,16 @@ function SprintsPage() {
                 />
                 <Tooltip
                   contentStyle={{
-                    background: "hsl(var(--card))",
+                    backgroundColor: "hsl(var(--card))",
                     border: "1px solid hsl(var(--border))",
+                    borderRadius: "var(--radius)",
+                    color: "hsl(var(--foreground))",
+                    fontSize: 12,
+                    padding: "8px 12px",
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.4)",
                   }}
+                  itemStyle={{ color: "hsl(var(--foreground))" }}
+                  labelStyle={{ color: "hsl(var(--muted-foreground))", marginBottom: 4 }}
                 />
                 <Line
                   type="monotone"
