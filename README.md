@@ -17,7 +17,7 @@ Enginuity AI is an "instrument flight deck" for engineering managers. It combine
 - **AI Manager Chat** — a conversational assistant that can fetch and summarize live Linear issues and Notion pages, and produce reports grounded in real data.
 - **Planning & Documentation Intelligence** — search Notion pages, surface missing sections, stale specs, and documentation quality gaps.
 - **Risk & Workload Signals** — AI-generated risk cards, team workload heatmaps, and merge-readiness summaries.
-- **MCP Connectivity** — integration cards and setup flows for GitHub, Jira, Slack, Notion, Postgres, Linear, and Google Drive.
+- **MCP Connectivity** — integration cards and setup flows for Linear, Notion, Jira, Slack, Postgres, and Google Drive.
 
 > **Note:** The current release uses realistic mocked engineering data for the dashboard, projects, sprints, and analytics. The AI Manager can optionally connect to live Linear and Notion workspaces through Lovable connectors.
 
@@ -192,7 +192,7 @@ Currently implemented in V1:
 
 Not yet implemented:
 
-- Real GitHub/Jira/Slack API integrations (UI present, backend pending)
+- Real Jira/Slack API integrations (UI present, backend pending)
 - Database-backed multi-tenant organizations
 - PDF export / email delivery for reports
 
