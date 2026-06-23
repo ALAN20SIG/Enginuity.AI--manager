@@ -53,6 +53,67 @@ Enginuity AI is an "instrument flight deck" for engineering managers. It combine
 
 ## Project Structure
 
+## Architecture Overview
+
+Enginuity AI is structured as three cooperating layers: a **presentation layer** (TanStack Start routes + shadcn UI), a **data layer** (Lovable Cloud / Supabase + mocked engineering data), and an **AI + MCP layer** (Lovable AI Gateway + connector-backed tools).
+
+```text
+┌──────────────────────────────────────────────────────────┐
+│  Presentation Layer (React 19 + TanStack Start)          │
+│  - _authenticated/* routes (Dashboard, Sprints, PRs...)  │
+│  - AppShell, PageHeader, shadcn/ui, Recharts             │
+└───────────────┬──────────────────────────┬───────────────┘
+                │                          │
+                │ useChat / fetch          │ server functions
+                ▼                          ▼
+┌──────────────────────────────┐ ┌────────────────────────┐
+│  AI Manager                  │ │  Data Layer            │
+│  /api/chat (streamText)      │ │  Supabase Auth + RLS   │
+│  Lovable AI Gateway          │ │  mock/engineering-data │
+│  google/gemini-3-flash       │ │  createServerFn (RPC)  │
+└───────────────┬──────────────┘ └────────────┬───────────┘
+                │ tool calls                  │
+                ▼                             │
+┌──────────────────────────────┐              │
+│  MCP Workflow                │              │
+│  connector-gateway.lovable   │              │
+│  Linear (GraphQL)            │◄─────────────┘
+│  Notion (REST v1)            │  shared auth/session
+└──────────────────────────────┘
+```
+
+### Core modules
+
+**1. AI Manager (`src/routes/_authenticated/ai-manager.tsx` + `src/routes/api/chat.ts`)**
+The conversational surface. The UI uses the Vercel AI SDK's `useChat` to stream messages from `/api/chat`, a TanStack Start server route that calls Lovable AI Gateway (`google/gemini-3-flash-preview`) via `createLovableAiGatewayProvider` (`src/lib/ai-gateway.server.ts`). The system prompt frames the model as an Engineering Manager and instructs it to prefer tools over guessing.
+
+**2. Data layer (`src/lib/mock/engineering-data.ts`, `src/integrations/supabase/*`)**
+Two sources feed the UI:
+- **Mocked engineering data** — sprints, projects, PRs, risks, KPIs consumed by dashboard/analytics routes. Deterministic and SSR-safe.
+- **Lovable Cloud (Supabase)** — auth + session, with `_authenticated/route.tsx` gating protected routes. Server functions use `requireSupabaseAuth` middleware (attached globally in `src/start.ts`) so RPC calls carry the user's bearer token.
+
+**3. MCP workflow (`src/routes/api/chat.ts` tools + `src/routes/_authenticated/mcp-connections.tsx`)**
+The chat route registers two tool families that proxy through `connector-gateway.lovable.dev`:
+- `linear_*` — GraphQL queries/mutations against Linear (teams, issues, create issue).
+- `notion_*` — REST calls to Notion for search, page metadata, and block content.
+Each tool injects `LOVABLE_API_KEY` (gateway auth) and the per-connector key (`LINEAR_API_KEY`, `NOTION_API_KEY`) server-side; secrets never reach the browser. The MCP Connections page is the user-facing setup surface for these connectors.
+
+### Request flow: a chat turn that reads Notion
+
+1. User types a question in `ai-manager.tsx`; `useChat` POSTs the message thread to `/api/chat`.
+2. `streamText` invokes the Gemini model through Lovable AI Gateway.
+3. Model decides to call `notion_search`, then `notion_get_page_content`.
+4. Each tool runs server-side, fetches via the connector gateway, and returns compact JSON to the model.
+5. The model composes a grounded answer; tokens stream back to the UI through `toUIMessageStreamResponse`.
+
+### Boundaries and conventions
+
+- App-internal logic uses **`createServerFn`** (typed RPC). Public/streaming endpoints use **server routes** under `src/routes/api/`.
+- Secrets (`LOVABLE_API_KEY`, connector keys) are read inside handlers only — never at module scope, never in client bundles.
+- Styling stays in semantic tokens (`src/styles.css`); no hardcoded colors in components.
+
+## Project Structure
+
 ```text
 src/
 ├── components/          # Reusable UI components (shadcn + custom)
