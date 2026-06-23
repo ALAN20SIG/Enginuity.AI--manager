@@ -51,8 +51,6 @@ Enginuity AI is an "instrument flight deck" for engineering managers. It combine
 | **Notifications**   | Unified activity feed                                                                                                  |
 | **Settings**        | Team management, roles, API keys, AI provider, MCP config                                                              |
 
-## Project Structure
-
 ## Architecture Overview
 
 Enginuity AI is structured as three cooperating layers: a **presentation layer** (TanStack Start routes + shadcn UI), a **data layer** (Lovable Cloud / Supabase + mocked engineering data), and an **AI + MCP layer** (Lovable AI Gateway + connector-backed tools).
