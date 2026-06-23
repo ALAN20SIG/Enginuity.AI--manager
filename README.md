@@ -87,14 +87,16 @@ The conversational surface. The UI uses the Vercel AI SDK's `useChat` to stream 
 
 **2. Data layer (`src/lib/mock/engineering-data.ts`, `src/integrations/supabase/*`)**
 Two sources feed the UI:
+
 - **Mocked engineering data** — sprints, projects, PRs, risks, KPIs consumed by dashboard/analytics routes. Deterministic and SSR-safe.
 - **Lovable Cloud (Supabase)** — auth + session, with `_authenticated/route.tsx` gating protected routes. Server functions use `requireSupabaseAuth` middleware (attached globally in `src/start.ts`) so RPC calls carry the user's bearer token.
 
 **3. MCP workflow (`src/routes/api/chat.ts` tools + `src/routes/_authenticated/mcp-connections.tsx`)**
 The chat route registers two tool families that proxy through `connector-gateway.lovable.dev`:
+
 - `linear_*` — GraphQL queries/mutations against Linear (teams, issues, create issue).
 - `notion_*` — REST calls to Notion for search, page metadata, and block content.
-Each tool injects `LOVABLE_API_KEY` (gateway auth) and the per-connector key (`LINEAR_API_KEY`, `NOTION_API_KEY`) server-side; secrets never reach the browser. The MCP Connections page is the user-facing setup surface for these connectors.
+  Each tool injects `LOVABLE_API_KEY` (gateway auth) and the per-connector key (`LINEAR_API_KEY`, `NOTION_API_KEY`) server-side; secrets never reach the browser. The MCP Connections page is the user-facing setup surface for these connectors.
 
 ### Request flow: a chat turn that reads Notion
 
