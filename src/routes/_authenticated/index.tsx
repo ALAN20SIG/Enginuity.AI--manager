@@ -38,8 +38,8 @@ function Dashboard() {
   ];
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="grid grid-cols-12 gap-6">
+    <div className="p-8 space-y-8 max-w-[1600px] mx-auto">
+      <div className="grid grid-cols-12 gap-8">
         {/* Health Radial */}
         <div className="col-span-12 lg:col-span-4 bg-card ring-1 ring-border rounded-xl p-6 relative overflow-hidden animate-fade-up">
           <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-40 pointer-events-none" />
@@ -115,14 +115,14 @@ function Dashboard() {
         </div>
 
         {/* KPI Cards */}
-        <div className="col-span-12 lg:col-span-8 grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="col-span-12 lg:col-span-8 grid grid-cols-2 lg:grid-cols-3 gap-5">
           {kpiCards.map((k, i) => {
             const delta = typeof k.delta === "number" ? k.delta : 0;
             const positive = delta >= 0;
             return (
               <div
                 key={k.key}
-                className="bg-card ring-1 ring-border rounded-xl p-4 flex flex-col justify-between animate-fade-up hover:ring-primary/30 transition-all"
+                className="bg-card ring-1 ring-border rounded-xl p-5 flex flex-col justify-between gap-3 animate-fade-up hover:ring-primary/30 transition-all"
                 style={{ animationDelay: `${40 + i * 40}ms` }}
               >
                 <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">
@@ -152,8 +152,8 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 lg:col-span-8 space-y-6">
+      <div className="grid grid-cols-12 gap-8">
+        <div className="col-span-12 lg:col-span-8 space-y-8">
           <div className="bg-card ring-1 ring-border rounded-xl overflow-hidden animate-fade-up">
             <div className="border-b border-border px-6 py-4 flex items-center justify-between">
               <h3 className="font-display font-bold">Velocity Trend</h3>
@@ -166,7 +166,7 @@ function Dashboard() {
                 </button>
               </div>
             </div>
-            <div className="p-4 h-64">
+            <div className="p-6 h-72">
               <ResponsiveContainer>
                 <AreaChart data={velocityTrend}>
                   <defs>
@@ -238,7 +238,7 @@ function Dashboard() {
                 {sprint.completedPoints} / {sprint.totalPoints} pts · {sprint.daysRemaining}d left
               </span>
             </div>
-            <div className="p-4 grid grid-cols-4 gap-3">
+            <div className="p-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[
                 { label: "Todo", items: sprint.columns.todo, color: "border-zinc-700" },
                 { label: "In Progress", items: sprint.columns.progress, color: "border-primary" },
