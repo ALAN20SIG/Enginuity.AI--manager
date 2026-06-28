@@ -26,26 +26,26 @@ function TeamAnalyticsPage() {
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis
                 dataKey="sprint"
-                stroke="#000000"
+                stroke="#10b981"
                 fontSize={11}
-                tick={{ fill: "#000000" }}
+                tick={{ fill: "#10b981" }}
                 label={{
                   value: "Sprint",
                   position: "insideBottom",
                   offset: -2,
-                  fill: "#000000",
+                  fill: "#10b981",
                   fontSize: 11,
                 }}
               />
               <YAxis
-                stroke="#000000"
+                stroke="#10b981"
                 fontSize={11}
-                tick={{ fill: "#000000" }}
+                tick={{ fill: "#10b981" }}
                 label={{
                   value: "Story Points",
                   angle: -90,
                   position: "insideLeft",
-                  fill: "#000000",
+                  fill: "#10b981",
                   fontSize: 11,
                 }}
               />
@@ -54,13 +54,13 @@ function TeamAnalyticsPage() {
                   backgroundColor: "hsl(var(--card))",
                   border: "1px solid hsl(var(--border))",
                   borderRadius: "var(--radius)",
-                  color: "#000000",
+                  color: "#10b981",
                   fontSize: 12,
                   padding: "8px 12px",
                   boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.4)",
                 }}
-                itemStyle={{ color: "#000000" }}
-                labelStyle={{ color: "#000000", marginBottom: 4 }}
+                itemStyle={{ color: "#10b981" }}
+                labelStyle={{ color: "#10b981", marginBottom: 4 }}
               />
               <Bar dataKey="points" fill="var(--chart-3)" radius={[4, 4, 0, 0]} />
             </BarChart>
