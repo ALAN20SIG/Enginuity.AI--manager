@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/enginuity-logo.png";
 import { supabase } from "@/integrations/supabase/client";
+import { CommandPalette } from "@/components/CommandPalette";
 
 const NAV = [
   {
@@ -60,6 +61,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     if (typeof window === "undefined") return false;
     return window.localStorage.getItem("enginuity-sidebar-collapsed") === "true";
   });
+  const [paletteOpen, setPaletteOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -176,16 +178,20 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-14 border-b border-border flex items-center justify-between px-6 bg-background/80 backdrop-blur-md sticky top-0 z-10">
           <div className="flex items-center gap-4 flex-1">
-            <div className="relative w-96 max-w-full">
+            <button
+              type="button"
+              onClick={() => setPaletteOpen(true)}
+              className="relative w-96 max-w-full text-left group"
+              aria-label="Open command palette"
+            >
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
-              <input
-                placeholder="Search commands, repos, PRs…"
-                className="w-full bg-secondary border border-border rounded-md py-1.5 pl-9 pr-12 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50"
-              />
+              <span className="block w-full bg-secondary border border-border rounded-md py-1.5 pl-9 pr-16 text-sm text-muted-foreground group-hover:border-primary/40 transition-colors">
+                Search commands, repos, PRs…
+              </span>
               <kbd className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-mono text-muted-foreground border border-border rounded px-1.5 py-0.5">
-                /
+                ⌘K
               </kbd>
-            </div>
+            </button>
           </div>
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-1.5 font-mono text-[10px] text-primary">
@@ -214,6 +220,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </div>
   );
 }
