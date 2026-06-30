@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import {
