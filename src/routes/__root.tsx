@@ -83,13 +83,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "MCP-powered AI tech lead and engineering manager for modern software teams.",
       },
       { name: "author", content: "Enginuity AI" },
-      { property: "og:title", content: "Enginuity AI" },
+      { property: "og:title", content: "Enginuity AI — AI Software Engineering Manager" },
       {
         property: "og:description",
         content: "MCP-powered AI tech lead and engineering manager for modern software teams.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Enginuity AI — AI Software Engineering Manager" },
+      { name: "description", content: "Enginuity AI Manager is an MCP-powered SaaS that acts as an AI Software Engineering Manager." },
+      { property: "og:description", content: "Enginuity AI Manager is an MCP-powered SaaS that acts as an AI Software Engineering Manager." },
+      { name: "twitter:description", content: "Enginuity AI Manager is an MCP-powered SaaS that acts as an AI Software Engineering Manager." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/122f83b7-0287-4a80-96d2-dd0db6c56192/id-preview-12cf4d58--ca85abda-c7bd-490a-b23b-e6ce57364186.lovable.app-1782837577994.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/122f83b7-0287-4a80-96d2-dd0db6c56192/id-preview-12cf4d58--ca85abda-c7bd-490a-b23b-e6ce57364186.lovable.app-1782837577994.png" },
     ],
     links: [
       {
