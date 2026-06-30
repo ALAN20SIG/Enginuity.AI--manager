@@ -186,6 +186,18 @@ bun run preview
 | `bun run format`    | Format code with Prettier          |
 | `bun run format:check` | Check formatting with Prettier    |
 
+## CI / GitHub Actions
+
+The repository includes `.github/workflows/ci.yml`, which runs on every push and pull request to `main`:
+
+1. **Install dependencies** with `bun install --frozen-lockfile`.
+2. **Lint** with `bun run lint`.
+3. **Check formatting** with `bun run format:check`.
+4. **Type-check** with `bun run typecheck`.
+5. **Run tests** with `bun test`.
+
+Pull requests that fail any of these checks cannot be merged cleanly.
+
 ## Environment Variables
 
 The project relies on Lovable Cloud for auth and backend. Required variables are injected automatically when running inside Lovable. For local development, ensure these are present in `.env`:
@@ -234,7 +246,8 @@ When a user asks about planning, specs, PRDs, runbooks, or documentation quality
 - **Typography:** Inter Display headings + JetBrains Mono for data/mono labels
 - **Dark-first theme:** semantic CSS tokens in `src/styles.css`
 - **Animations:** smooth fade-up entrance transitions
-- **Responsive:** sidebar collapses on smaller viewports; collapsible navigation with persisted state
+- **Navigation:** collapsible sidebar with persisted state; global ⌘K command palette for keyboard-driven navigation
+- **Responsive:** sidebar collapses on smaller viewports; chart labels and tooltips use high-contrast emerald text
 
 ## Deployment
 
